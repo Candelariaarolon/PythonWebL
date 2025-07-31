@@ -1,0 +1,22 @@
+<div class="latest-news mt-150 mb-150">
+	<div class="container">
+		<div class="row">
+			{% for workshop in workshops %}
+			<div class="col-lg-4 col-md-6">
+				<div class="single-latest-news">
+					<a href="{% url 'detalle_workshop' workshop.id %}">
+						<div class="latest-news-bg" style="background-image: url('{{ workshop.foto.url }}'); height: 300px; background-size: cover;"></div>
+					</a>
+					<div class="news-text-box">
+						<h3><a href="{% url 'detalle_workshop' workshop.id %}">{{ workshop.Titulo }}</a></h3>
+						<p class="excerpt">{{ workshop.Descripcion|truncatewords:25 }}</p>
+						<a href="{% url 'detalle_workshop' workshop.id %}" class="read-more-btn">Leer más <i class="fas fa-angle-right"></i></a>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+
