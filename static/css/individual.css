@@ -1,11 +1,41 @@
 .col-md-7 {
-    margin-top: 75px !important; /* Ajusta el valor según la altura de tu navbar */
+    margin-top: 150px;
+    text-align: left;
 }
 
-.single-product-img{
-    margin-top: 270px !important; /* Ajusta el valor según la altura de tu navbar */
+/* Selecciona la img dentro del carousel */
+#carouselProducto .carousel-item img {
+  margin-top: 220px;
+  margin-left: 90px;
+  width: 60%;  
+  
+  
 }
 
-.section-title{
-    margin-top: 240px !important; /* Ajusta el valor según la altura de tu navbar */
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: none; /* Quitamos la flecha original */
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 2px solid green; /* Bordes verdes por si querés */
+    border-radius: 50%;
+    margin-top: 200px; /* Ajusta la posición vertical */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: green; /* Color de la flecha */
+}
+
+.carousel-control-prev-icon::before {
+    content: '<'; /* Flecha izquierda */
+    color: green;
+}
+
+.carousel-control-next-icon::before {
+    content: '>'; /* Flecha derecha */
+    color: green;
 }

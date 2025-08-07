@@ -17,10 +17,12 @@ class Productos(models.Model):
     Precio = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
  
     def __str__(self):
-        return self.Titulo
+        return self.Titulo  #Significa que cuando Django (o vos) quiera imprimir ese objeto, lo que va a mostrar es el contenido de self.Titulo, o sea, el título del producto de cerámica.
     
 
-    
-#Significa que cuando Django (o vos) quiera imprimir ese objeto, lo que va a mostrar es el contenido de self.Titulo, o sea, el título del producto de cerámica.
+class ProductoImagen(models.Model):
+    producto = models.ForeignKey(Productos, related_name='imagenes', on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='productos/galeria/')
+
     
 

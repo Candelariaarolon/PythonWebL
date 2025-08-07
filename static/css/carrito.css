@@ -1,0 +1,15 @@
+.top-header-area {
+    background-color: #5d7c43;
+    padding: 15px 0;
+}
+
+.breadcrumb-bg {
+    background: #5d7c43 !important; /* fuerza el color sobre cualquier imagen */
+    background-image: none !important;
+}
+
+.breadcrumb-section {
+    background-color: #5d7c43; /* fondo verde */
+    padding: 50px 0; /* podés ajustar la altura */
+    color: white; /* para que el texto se vea bien */
+}
