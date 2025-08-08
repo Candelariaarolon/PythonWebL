@@ -129,7 +129,9 @@
 			<a href="{% url 'producto_individual' producto.id %}" class="detail-btn">
     			<i class="individualdetail"></i> Detalles de la Pieza
 			</a>
-			<a href="#" class="cart-btn"><i class="carrito"></i> Agregar al Carrito</a>
+			<a href="{% url 'agregar_al_carrito_desde_lista' producto.id %}" class="cart-btn">
+    			<i class="carrito"></i> Agregar al Carrito
+			</a>
         </div>
     </div>
     {% empty %}

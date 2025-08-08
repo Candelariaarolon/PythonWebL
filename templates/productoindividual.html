@@ -82,6 +82,15 @@
                 <form action="#">
                     <input type="number" placeholder="Cantidad" min="1" style="width: 80px;">
                 </form>
+                <form action="{% url 'agregar_al_carrito' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                    <input type="number" name="cantidad" placeholder="Cantidad" min="1" value="1" style="width: 80px;">
+                    <button type="submit" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                    </button>
+                </form>
+
                  <a href="{% url 'carrito' %}?producto_id={{ producto.id }}" class="cart-btn">
                     <i class="fas fa-shopping-cart"></i> Agregar al Carrito
                 </a>

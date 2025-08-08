@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Productos, ProductoImagen
+from .models import Producto, ProductoImagen
 
 class ProductoImagenInline(admin.TabularInline):
     model = ProductoImagen
@@ -9,5 +9,5 @@ class ProductoImagenInline(admin.TabularInline):
 class ProductosAdmin(admin.ModelAdmin):
     inlines = [ProductoImagenInline]
 
-admin.site.register(Productos, ProductosAdmin)
+admin.site.register(Producto, ProductosAdmin)
 admin.site.register(ProductoImagen)

@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'catalogo',
     'inicio',
     'workshops',
+    'pago',
 ]
 
 MIDDLEWARE = [

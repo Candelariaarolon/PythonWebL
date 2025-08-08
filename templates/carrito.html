@@ -73,49 +73,69 @@
 			<div class="row">
 				<div class="col-lg-8 col-md-12">
 					<div class="cart-table-wrap">
-						<table class="cart-table">
-							<thead class="cart-table-head">
-								<tr class="table-head-row">
-									<th class="product-remove"></th>
-									<th class="product-image">Product Image</th>
-									<th class="product-name">Name</th>
-									<th class="product-price">Price</th>
-									<th class="product-quantity">Quantity</th>
-									<th class="product-total">Total</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-1.jpg" alt=""></td>
-									<td class="product-name">Strawberry</td>
-									<td class="product-price">$85</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-2.jpg" alt=""></td>
-									<td class="product-name">Berry</td>
-									<td class="product-price">$70</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-3.jpg" alt=""></td>
-									<td class="product-name">Lemon</td>
-									<td class="product-price">$35</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+								<h2>Tus Elegidos</h2>
+				
 
-				<div class="col-lg-4">
-					<div class="total-section">
+<table class="cart-table">
+  <thead>
+    <tr>
+      <th class="product-remove"></th>
+      <th class="product-image">Product Image</th>
+      <th class="product-name">Name</th>
+      <th class="product-price">Price</th>
+      <th class="product-quantity">Quantity</th>
+      <th class="product-total">Total</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% if carrito %}
+      {% for item in carrito %}
+        <tr>
+          <td class="product-remove">
+            <!-- botón quitar (opcional) -->
+            <form method="post" action="{% url 'quitar_del_carrito' %}">
+              {% csrf_token %}
+              <input type="hidden" name="producto_id" value="{{ item.producto.id }}">
+              <button type="submit" class="remove-btn">×</button>
+            </form>
+          </td>
+
+          <td class="product-image">
+            {% if item.producto.foto %}
+              <img src="{{ item.producto.foto.url }}" alt="{{ item.producto.Titulo }}" style="max-width:80px;">
+            {% else %}
+              <img src="{% static 'img/default-product.png' %}" alt="sin imagen" style="max-width:80px;">
+            {% endif %}
+          </td>
+
+          <td class="product-name">{{ item.producto.Titulo }}</td>
+          <td class="product-price">${{ item.producto.Precio }}</td>
+
+          <td class="product-quantity">
+            <!-- actualizar cantidad -->
+            <form method="post" action="{% url 'actualizar_cantidad' %}">
+              {% csrf_token %}
+              <input type="hidden" name="producto_id" value="{{ item.producto.id }}">
+              <input type="number" name="cantidad" min="1" value="{{ item.cantidad }}" style="width:60px;">
+              <button type="submit">Actualizar</button>
+            </form>
+          </td>
+
+          <td class="product-total">${{ item.subtotal }}</td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="6">Tu carrito está vacío</td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>
+
+<!-- total -->
+<p>Total: ${{ total }}</p>
+
 						<table class="total-table">
 							<thead class="total-table-head">
 								<tr class="table-total-row">
@@ -124,20 +144,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="total-data">
-									<td><strong>Subtotal: </strong></td>
-									<td>$500</td>
-								</tr>
-								<tr class="total-data">
-									<td><strong>Shipping: </strong></td>
-									<td>$45</td>
-								</tr>
-								<tr class="total-data">
-									<td><strong>Total: </strong></td>
-									<td>$545</td>
-								</tr>
-							</tbody>
-						</table>
+								<tr class="to
 						<div class="cart-buttons">
 							<a href="cart.html" class="boxed-btn">Update Cart</a>
 							<a href="checkout.html" class="boxed-btn black">Check Out</a>

@@ -1,5 +1,5 @@
 from django.urls import path
-from productos.views import lista_productos, flitro_productos, producto_individual
+from productos.views import lista_productos, flitro_productos, producto_individual, agregar_al_carrito, agregar_al_carrito_desde_lista 
 
 urlpatterns = [
     #path('ceramica/', views.lista_ceramica, name='lista_ceramica'),
@@ -8,5 +8,7 @@ urlpatterns = [
     path('', lista_productos, name='lista_productos'),
     path('productos/filtrar/', flitro_productos, name='filtrar_productos'),
     path('producto/<int:pk>/', producto_individual, name='producto_individual'), 
+    path('agregar-al-carrito/', agregar_al_carrito, name='agregar_al_carrito'),
+    path('agregar-al-carrito/<int:producto_id>/', agregar_al_carrito_desde_lista, name='agregar_al_carrito_desde_lista'),
 ]
 

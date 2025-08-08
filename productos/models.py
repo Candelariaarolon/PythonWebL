@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Productos(models.Model):
+class Producto(models.Model):
+    id= models.AutoField(primary_key=True)
     foto = models.ImageField(upload_to='productos/', default='productos/default.jpg')
     Titulo = models.CharField(max_length=200, default='Título predeterminado')
     TIPO_CHOICES = [
@@ -21,7 +22,7 @@ class Productos(models.Model):
     
 
 class ProductoImagen(models.Model):
-    producto = models.ForeignKey(Productos, related_name='imagenes', on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, related_name='imagenes', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='productos/galeria/')
 
     
