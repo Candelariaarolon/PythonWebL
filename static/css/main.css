@@ -471,6 +471,7 @@ a.boxed-btn, a.bordered-btn, a.detail-btn {
 }
 
 .section-title {
+  margin-top: 100px;
   margin-bottom: 80px;
 }
 

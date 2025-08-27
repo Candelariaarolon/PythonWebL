@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from .models import Producto
 from django.views.decorators.http import require_POST
+from django.utils.http import urlencode
 
 #ProductosCeramica, ProductosAcuarela, ProductosAbstractos
 
@@ -64,11 +65,23 @@ def agregar_al_carrito_desde_lista(request, producto_id):
 
 
 
+    
+def productos_presupuesto(request):
+    
+    carrito = request.session.get('carrito', {})
+    if not carrito:
+        whatsapp_msg = "Pedido de productos:%0A(No hay productos en el carrito)"
+    else:
+        whatsapp_msg = "Pedido de productos:\n"
+        total = 0
+        for producto_id, cantidad in carrito.items():
+            producto = Producto.objects.get(id=producto_id)
+            subtotal = producto.Precio * cantidad
+            whatsapp_msg += f"- {producto.Titulo} x{cantidad}: ${subtotal:.2f}\n"
+            total += subtotal
+        whatsapp_msg += f"\nTotal: ${total:.2f}"
 
-#def lista_acuarela(request):
- #   productos = ProductosAcuarela.objects.all()
-  #  return render(request, 'productos/acuarela.html', {'productos': productos})
-
-#def lista_abstractos(request):
- #   productos = ProductosAbstractos.objects.all()
-  #  return render(request, 'productos/abstractos.html', {'productos': productos})
+    params = urlencode({'text': whatsapp_msg})
+    numero = "5493515101874"
+    whatsapp_url = f"https://wa.me/{numero}?{params}"
+    return redirect(whatsapp_url)

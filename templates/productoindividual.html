@@ -6,16 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
-    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/individual.css' %}">
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+
+<!-- El theme va después de los vendors -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+<!-- Tus overrides SIEMPRE al final -->
     <link rel="stylesheet" href="{% static 'css/individual.css' %}">
+
+
 
     <!-- title -->
     <title>Single Product</title>
@@ -25,31 +30,34 @@
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
     <!-- fontawesome -->
 </head>
 
 <body class="detalle-producto">
 
     <!-- header -->
-    <div class="top-header-area" id="sticker">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-sm-12 text-center">
-                    <div class="main-menu-wrap">
-                        <!-- logo -->
-                        {% include "navbar.html" %}
-                        <div class="site-logo">
-                            <a href="index.html">
-                                <img src="{% static 'img/logo.png' %}" alt="">
-                            </a>
-                        </div>
-                        <!-- logo -->
-                    </div>
+<div class="top-header-area" id="sticker">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 text-center">
+                <div class="main-menu-wrap">
+                    <!-- logo -->
+                
+                    <!-- logo -->
+
+                    <!-- menu -->
+                    {% include "navbar.html" %}
+                    <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                    <div class="mobile-menu"></div>
+                    <!-- menu end -->
                 </div>
             </div>
         </div>
     </div>
-    <!-- end header -->
+</div>
+<!-- end header -->
 
 
 <div class="single-product">
@@ -65,11 +73,11 @@
                         {% endfor %}
                     </div>
                     <a class="carousel-control-prev" href="#carouselProducto" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Anterior</span>
+                         <i class="bi bi-arrow-left-short" style="font-size: 2rem; color: green;"></i>
+                         <span class="sr-only">Anterior</span>
                     </a>
                     <a class="carousel-control-next" href="#carouselProducto" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                         <i class="bi bi-arrow-right-short" style="font-size: 2rem; color: green;"></i>
                         <span class="sr-only">Siguiente</span>
                     </a>
                 </div>
@@ -79,21 +87,17 @@
                 <h3>{{ producto.Titulo }}</h3>
                 <p>{{ producto.Descripcion }}</p>
                 <p>Precio: ${{ producto.Precio }}</p>
-                <form action="#">
-                    <input type="number" placeholder="Cantidad" min="1" style="width: 80px;">
-                </form>
-                <form action="{% url 'agregar_al_carrito' %}" method="POST">
+           
+                    <form action="{% url 'agregar_al_carrito' %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="producto_id" value="{{ producto.id }}">
                     <input type="number" name="cantidad" placeholder="Cantidad" min="1" value="1" style="width: 80px;">
-                    <button type="submit" class="cart-btn">
-                        <i class="fas fa-shopping-cart"></i> Agregar al Carrito
-                    </button>
+    
+                <button type="submit" class="cart-btn green-btn">
+                    <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                </button>
                 </form>
 
-                 <a href="{% url 'carrito' %}?producto_id={{ producto.id }}" class="cart-btn">
-                    <i class="fas fa-shopping-cart"></i> Agregar al Carrito
-                </a>
             </div>
         </div>
     </div>
@@ -235,6 +239,7 @@
 	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
 	<!-- mean menu -->
 	<script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
+    
 	<!-- sticker js -->
 	<script src="{% static 'js/sticker.js' %}"></script>
 	<!-- main js -->

@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/individual.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/individual.css' %}">
+
+    <!-- title -->
+    <title>Single Product</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="static/img/favicon.png">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+</head>
+
+<body class="detalle-producto">
+
+    <!-- header -->
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        <!-- logo -->
+                        {% include "navbar.html" %}
+                        <div class="site-logo">
+                            <a href="index.html">
+                                <img src="{% static 'img/logo.png' %}" alt="">
+                            </a>
+                        </div>
+                        <!-- logo -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end header -->
+
+
+<div class="single-product">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-5 text-center">
+            
+            <div class="col-md-7">
+                <img src="{{ workshop.foto.url }}" alt="{{ workshop.Titulo }}" class="img-fluid">
+                <h3>{{ workshop.Titulo }}</h3>
+                <p>{{ workshop.Descripcion }}</p>
+                <p>Precio: ${{ workshop.Precio }}</p>
+                <form action="#">
+                    <input type="number" placeholder="Cantidad" min="1" style="width: 80px;">
+                </form>
+                <form action="{% url 'agregar_al_carrito' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                    <button type="submit" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                    </button>
+                </form>
+
+                 <a href="{% url 'carrito' %}?producto_id={{ producto.id }}" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+    <!-- copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
+                        Distributed By - <a href="https://themewagon.com/">Themewagon</a>
+                    </p>
+                </div>
+                <div class="col-lg-6 text-right col-md-12">
+                    <div class="social-icons">
+                        <ul>
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    	
+	<!-- jquery -->
+	<script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+	<!-- bootstrap -->
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<!-- count down -->
+	<script src="{% static 'js/jquery.countdown.js' %}"></script>
+	<!-- isotope -->
+	<script src="{% static 'js/jquery.isotope-3.0.6.min.js' %}"></script>
+	<!-- waypoints -->
+	<script src="{% static 'js/waypoints.js' %}"></script>
+	<!-- owl carousel -->
+	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+	<!-- magnific popup -->
+	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+	<!-- mean menu -->
+	<script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
+	<!-- sticker js -->
+	<script src="{% static 'js/sticker.js' %}"></script>
+	<!-- main js -->
+	<script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

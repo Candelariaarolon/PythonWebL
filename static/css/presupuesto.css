@@ -1,0 +1,146 @@
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: #f5fff1;
+            color: rgba(0,0,0,.8);
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main-menu {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px 50px;
+       
+        }
+
+        .signup-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            max-width: 900px;
+            width: 100%;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,.1);
+        }
+
+        .left-container {
+            background: #5d7c43;
+            color: rgba(0,0,0,.8);
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .left-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .left-container h1 i {
+            background: #5d7c43;
+            border-radius: 50%;
+            color: #807182;
+            font-size: 24px;
+            margin-right: 5px;
+            padding: 10px;
+            transform: rotate(-45deg);
+        }
+
+        .left-container .puppy img {
+            width: 90%;
+          
+        }
+
+        .right-container {
+            background: #8cad7d;
+            padding: 40px;
+        }
+
+        .right-container h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        form input, form select, form textarea {
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,.1);
+            font-size: 14px;
+        }
+
+        .radio-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .radio-container label {
+            padding: 5px 10px;
+            border: 1px solid rgba(0,0,0,.1);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .radio-container input[type="radio"] {
+            display: none;
+        }
+
+        .radio-container input[type="radio"]:checked + label {
+            background: #F7B1AB;
+            color: #fff;
+            border-color: rgba(0,0,0,.1);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background: #5d7c43;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #5f5160;
+        }
+
+        @media (max-width: 900px) {
+            .signup-container {
+                grid-template-columns: 1fr;
+            }
+
+            .left-container, .right-container {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .left-container .puppy img {
+                width: 50%;
+            }
+        }
+    

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedir Presupuesto</title>
+    <link rel="stylesheet" href="{% static 'css/presupuesto.css' %}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     {% include "navbar.html" %}
+
+</head>
+<body>
+
+<div class="signup-container">
+    <!-- Izquierda con ilustración -->
+    <div class="left-container">
+        <h1>PRESUPUESTO</h1>
+        <div class="puppy">
+            <img src="{% static 'img/ceramicafoto.jpg' %}" alt="Presupuesto">
+            <p>¡Hola! Soy Laura y estoy para ayudarte a armar tu propio taller. Animate a crear piezas únicas y personalizadas. Si estás interesado en un presupuesto, por favor completa el formulario a la derecha y me pondré en contacto contigo lo antes posible.</p>
+        </div>
+    </div>
+
+    <!-- Derecha con formulario -->
+    <div class="right-container">
+        <h1>Completá tu pedido de presupuesto</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Enviar y abrir WhatsApp</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
+

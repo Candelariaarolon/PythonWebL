@@ -42,6 +42,7 @@
 							<a href="index.html">
 								<img src="assets/img/logo.png" alt="">
 							</a>
+							
 						</div>
 						<!-- logo -->
 					</div>
@@ -79,11 +80,11 @@
 	<table class="cart-table">
   	<thead>
     <tr>
-      <th class="product-remove"></th>
-      <th class="product-image">Product Image</th>
-      <th class="product-name">Name</th>
-      <th class="product-price">Price</th>
-      <th class="product-quantity">Quantity</th>
+      <th class="product-remove">Eliminar Producto</th>
+      <th class="product-image"></th>
+      <th class="product-name"></th>
+      <th class="product-price">Precio Individual</th>
+      <th class="product-quantity">Cantidad</th>
       <th class="product-total">Total</th>
     </tr>
   </thead>
@@ -144,14 +145,14 @@
 
 <!-- total -->
 <!-- total -->
-<p>Total: ${{ total }}</p>
+<div class="cart-summary">
+  <p>Total: ${{ total }}</p>
 
-<div class="cart-buttons">
-  <a href="{% url 'carrito' %}" class="boxed-btn">Update Cart</a>
-  <!-- Cambiá 'checkout' por el name que corresponda si lo tenés -->
-  
+
+<a href="{% url 'productos_presupuesto' %}" class="cart-buttons">
+    			<i class="carrito"></i> Hacer Pedido
+</a>
 </div>
-
 
 
 	

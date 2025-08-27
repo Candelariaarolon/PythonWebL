@@ -12,30 +12,45 @@
   
 }
 
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-image: none; /* Quitamos la flecha original */
-    width: 40px;
-    height: 40px;
-    background-color: transparent;
-    border: 2px solid green; /* Bordes verdes por si querés */
-    border-radius: 50%;
-    margin-top: 200px; /* Ajusta la posición vertical */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.green-btn {
+    background-color: #4CAF50; /* Verde */
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: white;
     font-weight: bold;
-    font-size: 24px;
-    color: green; /* Color de la flecha */
+    display: block;        /* Fuerza que ocupe toda la línea */
+    margin-top: 10px;  
 }
 
-.carousel-control-prev-icon::before {
-    content: '<'; /* Flecha izquierda */
-    color: green;
+/* Flechas verdes y tamaño razonable */
+#carouselProducto .carousel-control-prev i,
+#carouselProducto .carousel-control-next i {
+  margin-top: 200px;
+  font-size: 2.5rem;
+  color: #4CAF50;
 }
 
-.carousel-control-next-icon::before {
-    content: '>'; /* Flecha derecha */
-    color: green;
+/* Asegurá visibilidad por encima de la imagen */
+#carouselProducto .carousel-control-prev,
+#carouselProducto .carousel-control-next {
+  opacity: 1;
+  z-index: 10;
+}
+
+/* (Opcional) efecto hover */
+#carouselProducto .carousel-control-prev:hover i,
+#carouselProducto .carousel-control-next:hover i {
+  opacity: 0.85;
+}
+
+/* Fijá el header siempre arriba en la página de producto */
+body.detalle-producto #sticker {
+  position: sticky;   /* o fixed si preferís */
+  top: 0;
+  z-index: 9999;
+}
+
+/* Si usás fixed, agregá padding-top para que no tape el contenido */
+body.detalle-producto {
+  padding-top: 90px; /* ajustá al alto real del header */
 }
