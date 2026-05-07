@@ -1,12 +1,251 @@
 {% load static %}
+<style>
+/* ══════════════════════════════════════════
+   DESKTOP NAV
+══════════════════════════════════════════ */
+nav.main-menu > ul {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 36px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+nav.main-menu > ul > li,
+nav.main-menu > ul > li:last-child {
+    display: block !important;
+    float: none !important;
+}
+nav.main-menu ul li a {
+    color: #fff !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    font-family: 'Poppins', 'Open Sans', sans-serif !important;
+    text-transform: none !important;
+    text-decoration: none !important;
+    letter-spacing: .04em !important;
+    padding: 10px 0 !important;
+    display: block !important;
+    transition: opacity .2s !important;
+}
+nav.main-menu ul li a:hover {
+    opacity: .72 !important;
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+/* ══════════════════════════════════════════
+   MOBILE NAV — oculto en desktop
+══════════════════════════════════════════ */
+.m-topbar  { display: none; }
+.m-overlay { display: none; }
+.m-drawer  { display: none; }
+
+@media (max-width: 767px) {
+
+    /* Colapsar el header original */
+    .top-header-area {
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+    }
+    nav.main-menu,
+    .mobile-show,
+    .mobile-menu,
+    .mean-bar { display: none !important; }
+
+    /* ── Barra fija superior ── */
+    .m-topbar {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 56px;
+        background: #5D7C43;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 18px;
+        z-index: 9000;
+        box-shadow: 0 2px 8px rgba(0,0,0,.18);
+    }
+
+    /* Hamburguesa */
+    .m-ham {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start;
+    }
+    .m-ham span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: #fff;
+        border-radius: 2px;
+        transition: all .3s;
+    }
+
+    /* Marca central */
+    .m-topbar-brand {
+        font-family: 'Poppins', sans-serif;
+        font-size: .78rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+
+    /* Icono carrito */
+    .m-cart-icon {
+        color: #fff;
+        font-size: 1.3rem;
+        text-decoration: none !important;
+        padding: 8px 6px;
+        line-height: 1;
+    }
+    .m-cart-icon:hover { opacity: .75; color: #fff; }
+
+    /* ── Overlay oscuro ── */
+    .m-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.52);
+        z-index: 8999;
+    }
+    .m-overlay.m-open { display: block; }
+
+    /* ── Drawer lateral ── */
+    .m-drawer {
+        display: block;
+        position: fixed;
+        top: 0; left: -270px;
+        width: 260px;
+        height: 100%;
+        background: #051922;
+        z-index: 9001;
+        transition: left .3s ease;
+        padding-top: 56px;
+        overflow-y: auto;
+    }
+    .m-drawer.m-open { left: 0; }
+
+    .m-drawer ul {
+        list-style: none;
+        margin: 0;
+        padding: 24px 0;
+    }
+    .m-drawer ul li a {
+        display: block !important;
+        padding: 15px 28px !important;
+        color: rgba(255,255,255,.88) !important;
+        font-family: 'Poppins', sans-serif !important;
+        font-size: .9rem !important;
+        font-weight: 500 !important;
+        text-decoration: none !important;
+        letter-spacing: .05em !important;
+        border-bottom: 1px solid rgba(255,255,255,.07) !important;
+        transition: background .2s !important;
+    }
+    .m-drawer ul li a:hover {
+        background: rgba(93,124,67,.35) !important;
+        color: #fff !important;
+        opacity: 1 !important;
+    }
+
+    /* Botón cerrar */
+    .m-drawer-close {
+        position: absolute;
+        top: 15px; right: 16px;
+        background: none;
+        border: none;
+        color: rgba(255,255,255,.65);
+        font-size: 1.3rem;
+        cursor: pointer;
+        line-height: 1;
+        padding: 4px;
+    }
+}
+</style>
+
+<!-- ── Desktop nav ── -->
 <nav class="main-menu">
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <ul>
-        
         <li><a href="{% url 'inicio' %}">Inicio</a></li>
         <li><a href="{% url 'filtrar_productos' %}">Productos</a></li>
         <li><a href="{% url 'catalogo_workshops' %}">Workshops</a></li>
+        <li><a href="{% url 'pedir_presupuesto' %}">Presupuesto</a></li>
         <li><a href="{% url 'carrito' %}">Carrito</a></li>
-
     </ul>
 </nav>
+
+<!-- ── Mobile topbar ── -->
+<div class="m-topbar">
+    <button class="m-ham" onclick="mOpenDrawer()">
+        <span></span><span></span><span></span>
+    </button>
+    <span class="m-topbar-brand">Laura Martinez</span>
+    <a href="{% url 'carrito' %}" class="m-cart-icon">
+        <i class="fas fa-shopping-bag"></i>
+    </a>
+</div>
+
+<!-- Overlay -->
+<div class="m-overlay" id="mOverlay" onclick="mCloseDrawer()"></div>
+
+<!-- Drawer -->
+<div class="m-drawer" id="mDrawer">
+    <button class="m-drawer-close" onclick="mCloseDrawer()">✕</button>
+    <ul>
+        <li><a href="{% url 'inicio' %}"             onclick="mCloseDrawer()">Inicio</a></li>
+        <li><a href="{% url 'filtrar_productos' %}"  onclick="mCloseDrawer()">Productos</a></li>
+        <li><a href="{% url 'catalogo_workshops' %}" onclick="mCloseDrawer()">Workshops</a></li>
+        <li><a href="{% url 'pedir_presupuesto' %}"  onclick="mCloseDrawer()">Presupuesto</a></li>
+        <li><a href="{% url 'carrito' %}"            onclick="mCloseDrawer()">Carrito</a></li>
+    </ul>
+</div>
+
+<script>
+// Mover elementos mobile al <body> para escapar del sticker.js
+(function() {
+    function moveMobileNav() {
+        var tb = document.querySelector('.m-topbar');
+        var ov = document.getElementById('mOverlay');
+        var dr = document.getElementById('mDrawer');
+        if (tb && tb.parentElement !== document.body)
+            document.body.insertBefore(tb, document.body.firstChild);
+        if (ov && ov.parentElement !== document.body)
+            document.body.appendChild(ov);
+        if (dr && dr.parentElement !== document.body)
+            document.body.appendChild(dr);
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', moveMobileNav);
+    } else {
+        moveMobileNav();
+    }
+})();
+
+function mOpenDrawer() {
+    document.getElementById('mDrawer').classList.add('m-open');
+    document.getElementById('mOverlay').classList.add('m-open');
+    document.body.style.overflow = 'hidden';
+}
+function mCloseDrawer() {
+    document.getElementById('mDrawer').classList.remove('m-open');
+    document.getElementById('mOverlay').classList.remove('m-open');
+    document.body.style.overflow = '';
+}
+</script>

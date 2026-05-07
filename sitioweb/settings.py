@@ -8,10 +8,13 @@ DEBUG = True
 
 #lista de hosts permitidos
 # En producción, debes agregar los dominios permitidos
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.247', 'localhost', '127.0.0.1']
 
 #agrego mis propias apps
 INSTALLED_APPS = [
+    "unfold",
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,7 +69,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'clientes',           
         'USER': 'root',            
-        'PASSWORD': 'Clocks!123.',
+        'PASSWORD': 'Clocks123',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -121,5 +124,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MERCADOPAGO_PUBLIC_KEY = 'TEST-ca4767ec-58f8-49a9-bb91-223b9e7b588d'
+MERCADOPAGO_ACCESS_TOKEN = 'TEST-7464032331999597-042814-dd4bfb8d5dab7673f8e2228a013be212-408048485'
+
+UNFOLD = {
+    "SITE_TITLE": "Panel de gestión",
+    "SITE_HEADER": "Mi tienda",
+    "SITE_SYMBOL": "storefront",
+}
 
 

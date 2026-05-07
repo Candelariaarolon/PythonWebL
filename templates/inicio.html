@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
 	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
 	<link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
-	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}?v=2">
 	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 	<!-- title -->
@@ -22,8 +22,70 @@
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+	<style>
+		.section-title h3 {
+			font-family: 'Cormorant Garamond', serif;
+			font-size: 2.4rem;
+			font-weight: 300;
+			color: #1c1710;
+			letter-spacing: .02em;
+		}
+		.product-section a.cart-btn,
+		.product-section a.detail-btn {
+			font-size: 0.72rem;
+			padding: 6px 14px;
+			margin-top: 8px;
+		}
 
-	
+		@media (max-width: 767px) {
+			/* 2 tarjetas por fila */
+			.product-section .col-lg-4 {
+				width: 50% !important;
+				padding: 0 6px 14px !important;
+			}
+			/* Ocultar precio y botones */
+			.product-section .single-product-item .product-price,
+			.product-section .single-product-item .detail-btn,
+			.product-section .single-product-item .cart-btn {
+				display: none !important;
+			}
+			/* Tarjeta tipo polaroid */
+			.product-section .single-product-item {
+				padding: 0 !important;
+				overflow: hidden !important;
+				border-radius: 6px !important;
+				box-shadow: 0 2px 10px rgba(0,0,0,.10) !important;
+				background: #fff !important;
+			}
+			/* Imagen ocupa todo el ancho */
+			.product-section .single-product-item .product-image {
+				margin: 0 !important;
+				padding: 0 !important;
+				line-height: 0;
+			}
+			.product-section .single-product-item .product-image img {
+				width: 100% !important;
+				height: 160px !important;
+				object-fit: cover !important;
+				border-radius: 0 !important;
+				display: block !important;
+			}
+			/* Título verde debajo de la foto */
+			.product-section .single-product-item h3 {
+				font-size: .82rem !important;
+				margin: 0 !important;
+				padding: 10px 10px 12px !important;
+				line-height: 1.3 !important;
+				color: #5D7C43 !important;
+				font-family: 'Poppins', sans-serif !important;
+				font-weight: 600 !important;
+			}
+			.product-section .single-product-item h3 a {
+				color: #5D7C43 !important;
+			}
+		}
+	</style>
 
 </head>
 <body>
@@ -36,16 +98,7 @@
 			<div class="row">
 				<div class="col-lg-12 col-sm-12 text-center">
 					<div class="main-menu-wrap">
-						<!-- logo -->
-						<div class="site-logo">
-							<a href="index.html">
-								<img src="assets/img/logo.png" alt="">
-							</a>
-						</div>
-						<!-- logo -->
-
-						<!-- menu start -->
-						 {% include "navbar.html" %}
+						{% include "navbar.html" %}
 						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 						<div class="mobile-menu"></div>
 						<!-- menu end -->
@@ -97,382 +150,144 @@
 	</div>
 	<!-- end hero area -->
 
-	<!-- features list section -->
-	<div class="list-section pt-80 pb-80">
-		<div class="container">
-
-			<div class="row">
-				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-					<div class="list-box d-flex align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-shipping-fast"></i>
-						</div>
-						<div class="content">
-							<h3>Free Shipping</h3>
-							<p>When order over $75</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-					<div class="list-box d-flex align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-phone-volume"></i>
-						</div>
-						<div class="content">
-							<h3>24/7 Support</h3>
-							<p>Get support all day</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="list-box d-flex justify-content-start align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-sync"></i>
-						</div>
-						<div class="content">
-							<h3>Refund</h3>
-							<p>Get refund within 3 days!</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<!-- end features list section -->
-
 	<!-- product section -->
-	<div class="product-section mt-150 mb-150">
+	<div class="product-section mt-80 mb-80">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Our</span> Products</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+					<div class="section-title">
+						<h3>Productos</h3>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
+				{% for producto in productos %}
+				<div class="col-lg-4 col-md-6 text-center mb-4">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+							<a href="{% url 'producto_individual' producto.id %}">
+								{% if producto.foto %}
+									<img src="{{ producto.foto.url }}" alt="{{ producto.Titulo }}">
+								{% endif %}
+							</a>
 						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"><span>Per Kg</span> 85$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<h3><a href="{% url 'producto_individual' producto.id %}" style="color:inherit;text-decoration:none;">{{ producto.Titulo }}</a></h3>
+						{% if producto.tiene_descuento %}
+							<p class="product-price">
+								<span style="text-decoration:line-through;color:#999;">${{ producto.Precio }}</span>
+								<strong style="color:#e63946;"> -{{ producto.descuento }}%</strong><br>
+								${{ producto.precio_final }}
+							</p>
+						{% else %}
+							<p class="product-price">${{ producto.Precio }}</p>
+						{% endif %}
+						<a href="{% url 'producto_individual' producto.id %}" class="detail-btn">Detalles de la Pieza</a>
+						<a href="{% url 'agregar_al_carrito_desde_lista' producto.id %}" class="cart-btn">Agregar al Carrito</a>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-2.jpg" alt=""></a>
-						</div>
-						<h3>Berry</h3>
-						<p class="product-price"><span>Per Kg</span> 70$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
+				{% empty %}
+				<div class="col-12 text-center py-5">
+					<p style="color:#a09286;font-size:1.1rem;">No hay productos cargados aún.</p>
 				</div>
-				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
-						</div>
-						<h3>Lemon</h3>
-						<p class="product-price"><span>Per Kg</span> 35$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
 	<!-- end product section -->
 
-	<!-- cart banner section -->
-	<section class="cart-banner pt-100 pb-100">
-    	<div class="container">
-        	<div class="row clearfix">
-            	<!--Image Column-->
-            	<div class="image-column col-lg-6">
-                	<div class="image">
-                    	<div class="price-box">
-                        	<div class="inner-price">
-                                <span class="price">
-                                    <strong>30%</strong> <br> off per kg
-                                </span>
-                            </div>
-                        </div>
-                    	<img src="assets/img/a.jpg" alt="">
-                    </div>
-                </div>
-                <!--Content Column-->
-                <div class="content-column col-lg-6">
-					<h3><span class="orange-text">Deal</span> of the month</h3>
-                    <h4>Hikan Strwaberry</h4>
-                    <div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
-                    <!--Countdown Timer-->
-                    <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
-                	<a href="cart.html" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- end cart banner section -->
-
-	<!-- testimonail-section -->
-	<div class="testimonail-section mt-150 mb-150">
-		<div class="container">
+	<!-- presentacion Laura -->
+	<section style="position:relative; padding:120px 0; text-align:center; background:url('{% static 'img/laurapresent.jpg' %}') center center / cover no-repeat;">
+		<div style="position:absolute;inset:0;background:rgba(0,0,0,0.35);"></div>
+		<div class="container" style="position:relative;z-index:1;">
 			<div class="row">
-				<div class="col-lg-10 offset-lg-1 text-center">
-					<div class="testimonial-sliders">
-						<div class="single-testimonial-slider">
-							<div class="client-avater">
-								<img src="assets/img/avaters/avatar1.png" alt="">
-							</div>
-							<div class="client-meta">
-								<h3>Saira Hakim <span>Local shop owner</span></h3>
-								<p class="testimonial-body">
-									" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-								</p>
-								<div class="last-icon">
-									<i class="fas fa-quote-right"></i>
-								</div>
-							</div>
-						</div>
-						<div class="single-testimonial-slider">
-							<div class="client-avater">
-								<img src="assets/img/avaters/avatar2.png" alt="">
-							</div>
-							<div class="client-meta">
-								<h3>David Niph <span>Local shop owner</span></h3>
-								<p class="testimonial-body">
-									" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-								</p>
-								<div class="last-icon">
-									<i class="fas fa-quote-right"></i>
-								</div>
-							</div>
-						</div>
-						<div class="single-testimonial-slider">
-							<div class="client-avater">
-								<img src="assets/img/avaters/avatar3.png" alt="">
-							</div>
-							<div class="client-meta">
-								<h3>Jacob Sikim <span>Local shop owner</span></h3>
-								<p class="testimonial-body">
-									" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-								</p>
-								<div class="last-icon">
-									<i class="fas fa-quote-right"></i>
-								</div>
-							</div>
-						</div>
+				<div class="col-lg-6 offset-lg-3">
+					<div style="background:rgba(255,255,255,0.12); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.2); border-radius:12px; padding:48px 40px;">
+						<h2 style="font-family:'Poppins',sans-serif; font-size:2.6rem; font-weight:700; color:#fff; margin-bottom:1.4rem; letter-spacing:.01em;">Laura Martínez</h2>
+						<p style="font-family:'Open Sans',sans-serif; font-size:1rem; color:rgba(255,255,255,0.9); line-height:1.9; margin:0;">
+							Soy Laura, artista visual especializada en pintura sobre cerámica, acuarela y acrílico. Creo piezas únicas que cuentan historias, despiertan emociones y transforman momentos en arte que perdura.
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- end testimonail-section -->
-	
-	<!-- advertisement section -->
-	<div class="abt-section mb-150">
+	</section>
+
+	<!-- servicios -->
+	<section style="background:#faf8f5; padding:90px 0;">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<div class="abt-bg">
-						<a href="https://www.youtube.com/watch?v=DBLlFWYcIGQ" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+
+				<div class="col-lg-6 mb-4 d-flex">
+					<div style="background:#fff; border-radius:8px; padding:36px 28px; box-shadow:0 2px 18px rgba(5,25,34,0.07); width:100%;">
+						<div style="font-size:1.6rem; color:#5D7C43; margin-bottom:14px;"><i class="fas fa-users"></i></div>
+						<h4 style="font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700; color:#051922; margin-bottom:10px;">Eventos personalizados de pintura sobre cerámica</h4>
+						<p style="font-family:'Open Sans',sans-serif; font-size:0.88rem; color:#666; line-height:1.8; margin:0;">¿Buscás un plan distinto con amigas, organizar tu cumpleaños, un after office creativo o una actividad para tu equipo de trabajo? Armamos experiencias a medida donde cada persona pinta su propia pieza de cerámica y se la lleva terminada. Vos elegís la ocasión, yo me encargo de que sea inolvidable.</p>
 					</div>
 				</div>
-				<div class="col-lg-6 col-md-12">
-					<div class="abt-text">
-						<p class="top-sub">Since Year 1999</p>
-						<h2>We are <span class="orange-text">Fruitkha</span></h2>
-						<p>Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
-						<a href="about.html" class="boxed-btn mt-4">know more</a>
+
+				<div class="col-lg-6 mb-4 d-flex">
+					<div style="background:#fff; border-radius:8px; padding:36px 28px; box-shadow:0 2px 18px rgba(5,25,34,0.07); width:100%;">
+						<div style="font-size:1.6rem; color:#5D7C43; margin-bottom:14px;"><i class="fas fa-palette"></i></div>
+						<h4 style="font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700; color:#051922; margin-bottom:10px;">Clases grupales de pintura sobre cerámica</h4>
+						<p style="font-family:'Open Sans',sans-serif; font-size:0.88rem; color:#666; line-height:1.8; margin:0;">Clases semanales en grupos reducidos donde podés crear sets de vajilla completos o animarte a algo distinto cada vez. No es una suscripción mensual: te sumás los días que quieras, sin compromiso. La excusa perfecta para juntarse, reírse, crear y descubrir que todos llevamos un artista adentro. Cada uno se lleva su pieza terminada.</p>
 					</div>
 				</div>
+
+				<div class="col-lg-6 mb-4 d-flex">
+					<div style="background:#fff; border-radius:8px; padding:36px 28px; box-shadow:0 2px 18px rgba(5,25,34,0.07); width:100%;">
+						<div style="font-size:1.6rem; color:#5D7C43; margin-bottom:14px;"><i class="fas fa-paint-brush"></i></div>
+						<h4 style="font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700; color:#051922; margin-bottom:10px;">Acuarelas personalizadas</h4>
+						<p style="font-family:'Open Sans',sans-serif; font-size:0.88rem; color:#666; line-height:1.8; margin:0;">Pinturas hechas a medida que capturan paisajes, retratos, rincones queridos o cualquier imagen que lleves en el corazón. Cada trazo nace de una conversación con vos: una acuarela pensada desde cero, con alma.</p>
+					</div>
+				</div>
+
+				<div class="col-lg-6 mb-4 d-flex">
+					<div style="background:#fff; border-radius:8px; padding:36px 28px; box-shadow:0 2px 18px rgba(5,25,34,0.07); width:100%;">
+						<div style="font-size:1.6rem; color:#5D7C43; margin-bottom:14px;"><i class="fas fa-heart"></i></div>
+						<h4 style="font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700; color:#051922; margin-bottom:10px;">Tu ramo de novia convertido en cuadro</h4>
+						<p style="font-family:'Open Sans',sans-serif; font-size:0.88rem; color:#666; line-height:1.8; margin:0;">Ese ramo que elegiste con tanto amor no tiene por qué terminar en un cajón. Seco las flores cuidadosamente y las enmarco para transformarlas en una obra de arte: una forma única y emotiva de conservar para siempre uno de los recuerdos más especiales de tu vida. El regalo perfecto para vos o para alguien que acaba de casarse.</p>
+					</div>
+				</div>
+
+				<div class="col-lg-6 mb-4 d-flex">
+					<div style="background:#fff; border-radius:8px; padding:36px 28px; box-shadow:0 2px 18px rgba(5,25,34,0.07); width:100%;">
+						<div style="font-size:1.6rem; color:#5D7C43; margin-bottom:14px;"><i class="fas fa-layer-group"></i></div>
+						<h4 style="font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700; color:#051922; margin-bottom:10px;">Pinturas en acrílico sobre lienzo</h4>
+						<p style="font-family:'Open Sans',sans-serif; font-size:0.88rem; color:#666; line-height:1.8; margin:0;">Color, textura y expresión. Trabajo piezas en acrílico que van desde lo abstracto hasta lo figurativo, ideales para dar vida a cualquier espacio. Si buscás una obra original que hable por sí sola, este es tu lugar.</p>
+					</div>
+				</div>
+
+				<div class="col-lg-6 mb-4 d-flex">
+					<div style="background:#fff; border-radius:8px; padding:36px 28px; box-shadow:0 2px 18px rgba(5,25,34,0.07); width:100%;">
+						<div style="font-size:1.6rem; color:#5D7C43; margin-bottom:14px;"><i class="fas fa-chalkboard-teacher"></i></div>
+						<h4 style="font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700; color:#051922; margin-bottom:10px;">Workshops de pintura sobre cerámica para estudios</h4>
+						<p style="font-family:'Open Sans',sans-serif; font-size:0.88rem; color:#666; line-height:1.8; margin:0;">¿Tenés un estudio de cerámica y querés ofrecer un evento especial? Organizamos workshops con temáticas botánicas donde los participantes pintan sus propias piezas desde cero. Incluimos un diseño previo como guía para que los resultados queden profesionales. No se necesita experiencia previa, solo ganas de pasar un buen rato, desconectar y llevarse a casa algo hecho con las propias manos.</p>
+					</div>
+				</div>
+
 			</div>
 		</div>
-	</div>
-	<!-- end advertisement section -->
-	
-	<!-- shop banner -->
-	<section class="shop-banner">
-    	<div class="container">
-        	<h3>December sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
-            <div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
-            <a href="shop.html" class="cart-btn btn-lg">Shop Now</a>
-        </div>
-    </section>
-	<!-- end shop banner -->
+	</section>
 
-	<!-- latest news -->
-	<div class="latest-news pt-150 pb-150">
+	<!-- CTA -->
+	<section style="background:#5D7C43; padding:80px 0; text-align:center;">
 		<div class="container">
-
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Our</span> News</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-4 col-md-6">
-					<div class="single-latest-news">
-						<a href="single-news.html"><div class="latest-news-bg news-bg-1"></div></a>
-						<div class="news-text-box">
-							<h3><a href="single-news.html">You will vainly look for fruit on it in autumn.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="single-latest-news">
-						<a href="single-news.html"><div class="latest-news-bg news-bg-2"></div></a>
-						<div class="news-text-box">
-							<h3><a href="single-news.html">A man's worth has its season, like tomato.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
-					<div class="single-latest-news">
-						<a href="single-news.html"><div class="latest-news-bg news-bg-3"></div></a>
-						<div class="news-text-box">
-							<h3><a href="single-news.html">Good thoughts bear good fresh juicy fruit.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<a href="news.html" class="boxed-btn">More News</a>
-				</div>
-			</div>
+			<h3 style="font-family:'Poppins',sans-serif; font-size:2.2rem; font-weight:700; color:#fff; margin-bottom:1rem;">¿Querés sumarte?</h3>
+			<p style="font-family:'Open Sans',sans-serif; font-size:1rem; color:rgba(255,255,255,0.88); max-width:560px; margin:0 auto 2rem; line-height:1.8;">
+				Escribime para reservar tu lugar en el próximo workshop, consultar por un encargo personalizado o armar una experiencia grupal a medida. Los cupos son limitados y se agotan rápido.
+			</p>
+			<a href="https://wa.me/5493515101874" target="_blank"
+			   style="display:inline-block; padding:13px 32px; border-radius:50px; font-family:'Poppins',sans-serif; font-weight:700; font-size:0.88rem; background:#fff; color:#5D7C43; text-decoration:none; margin:6px 8px; transition:all 0.3s;">
+				<i class="fab fa-whatsapp"></i> Escribime por WhatsApp
+			</a>
+			<a href="https://www.instagram.com/lauramartinez_watercolor/" target="_blank"
+			   style="display:inline-block; padding:13px 32px; border-radius:50px; font-family:'Poppins',sans-serif; font-weight:700; font-size:0.88rem; background:transparent; color:#fff; border:2px solid #fff; text-decoration:none; margin:6px 8px; transition:all 0.3s;">
+				<i class="fab fa-instagram"></i> @lauramartinez_watercolor
+			</a>
 		</div>
-	</div>
-	<!-- end latest news -->
+	</section>
 
-	<!-- logo carousel -->
-	<div class="logo-carousel-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="logo-carousel-inner">
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/1.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/2.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/3.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/4.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/5.png" alt="">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end logo carousel -->
-
-	<!-- footer -->
-	<div class="footer-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
-						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
-						<ul>
-							<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
-							<li>support@fruitkha.com</li>
-							<li>+00 111 222 3333</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box pages">
-						<h2 class="widget-title">Pages</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="services.html">Shop</a></li>
-							<li><a href="news.html">News</a></li>
-							<li><a href="contact.html">Contact</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates.</p>
-						<form action="index.html">
-							<input type="email" placeholder="Email">
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end footer -->
-	
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.<br>
-						Distributed By - <a href="https://themewagon.com/">Themewagon</a>
-					</p>
-				</div>
-				<div class="col-lg-6 text-right col-md-12">
-					<div class="social-icons">
-						<ul>
-							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end copyright -->
 	
 	<!-- jquery -->
 	<script src="static/js/jquery-1.11.3.min.js"></script>
@@ -494,6 +309,22 @@
 	<script src="static/js/sticker.js"></script>
 	<!-- main js -->
 	<script src="static/js/main.js"></script>
+
+	<script>
+		document.querySelectorAll('.cart-btn').forEach(function(btn) {
+			btn.addEventListener('click', function(e) {
+				e.preventDefault();
+				var url = btn.getAttribute('href');
+				var original = btn.textContent;
+				fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+					.then(function(r) { return r.json(); })
+					.then(function() {
+						btn.textContent = '¡Agregado!';
+						setTimeout(function() { btn.textContent = original; }, 1500);
+					});
+			});
+		});
+	</script>
 
 </body>
 </html>

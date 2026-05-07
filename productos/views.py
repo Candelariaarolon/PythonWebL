@@ -15,13 +15,19 @@ def flitro_productos(request):
         productos = Producto.objects.filter(tipo=tipo)
     else:
         productos = Producto.objects.all()
-    paginator = Paginator(productos, 15)  # 15 productos por página
+    paginator = Paginator(productos, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+    best_sellers = list(Producto.objects.filter(destacado=True))
+    if not best_sellers:
+        best_sellers = list(Producto.objects.all()[:8])
+
     return render(request, 'productos.html', {
         'productos': page_obj,
         'tipo': tipo,
         'page_obj': page_obj,
+        'best_sellers': best_sellers,
     })
 
 def producto_individual(request, pk):
@@ -61,7 +67,15 @@ def agregar_al_carrito_desde_lista(request, producto_id):
         carrito[producto_id_str] = 1
 
     request.session['carrito'] = carrito
-    return redirect('filtrar_productos')  # Redirige a la página de filtrado de productos
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        from django.http import JsonResponse
+        return JsonResponse({'ok': True, 'total': sum(carrito.values())})
+
+    referer = request.META.get('HTTP_REFERER')
+    if referer:
+        return redirect(referer)
+    return redirect('filtrar_productos')
 
 
 

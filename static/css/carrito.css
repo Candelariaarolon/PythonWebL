@@ -1,67 +1,357 @@
-.top-header-area {
-    background-color: #5d7c43;
-    padding: 15px 0;
+/* ============================================================
+   CARRITO
+   ============================================================ */
+
+.carrito-page {
+    background-color: #f0ede8;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    color: #1c1710;
+    min-height: 100vh;
 }
 
-.breadcrumb-bg {
-    background: #5d7c43 !important; /* fuerza el color sobre cualquier imagen */
-    background-image: none !important;
+/* --- Header --- */
+.c-header {
+    background-color: #fff;
+    border-bottom: 1px solid #e4ddd6;
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.c-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
 }
 
-.breadcrumb-section {
-    background-color: #5d7c43; /* fondo verde */
-    padding: 50px 0; /* podés ajustar la altura */
-    color: white; /* para que el texto se vea bien */
+/* --- Página --- */
+.c-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 44px 32px 80px;
 }
 
-
-/* Contenedor de total + botones */
-.cart-summary {
-  margin-top: 30px;     /* espacio arriba de la tabla */
-  margin-bottom: 60px;  /* espacio abajo (antes del footer) */
-  display: flex;
-  align-items: flex-start;
-  margin-left: 60px;
+.c-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+    color: #1c1710;
+    margin: 0 0 36px;
+    letter-spacing: 0.01em;
 }
 
-/* Estilo del total */
-.cart-summary p {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 0;
+/* --- Layout 2 columnas --- */
+.c-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 32px;
+    align-items: start;
 }
 
-/* Botón (si querés ajustarlo) */
-.cart-summary {
-  margin-top: 30px;
-  margin-bottom: 60px;
-  display: flex;
-  flex-direction: column;   /* 🔹 Ahora en columna */
-     /* texto centrado */
+/* ============================================================
+   TARJETAS DE PRODUCTO
+   ============================================================ */
+
+.c-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-/* Estilo del total */
-.cart-summary p {
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin-bottom: 15px;   /* espacio debajo del total */
-  margin-left: 70px;
+.c-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    gap: 20px;
+    align-items: start;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
-/* Botón verde */
-.cart-summary .boxed-btn {
-  background-color: #4CAF50; /* verde */
-  color: white;
-  padding: 12px 24px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-  margin-bottom: 100px;
-  margin-left: 60px;
-  
+/* Imagen pequeña y cuadrada */
+.c-card-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #f0ede8;
+    flex-shrink: 0;
+}
+.c-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.c-card-img-empty {
+    width: 100%;
+    height: 100%;
+    background-color: #e8e3dc;
 }
 
-.cart-summary .boxed-btn:hover {
-  background-color: #388E3C; /* verde más oscuro en hover */
+/* Nombre y precio */
+.c-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.c-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #1c1710;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.c-card-price {
+    font-size: 0.85rem;
+    color: #8a7e72;
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.price-old {
+    text-decoration: line-through;
+    color: #bbb3ab;
+    font-size: 0.82em;
+}
+.price-pct {
+    font-size: 0.75rem;
+    color: #a05038;
+    background: #f5ece8;
+    padding: 1px 6px;
+    border-radius: 3px;
+}
+
+/* Fila cantidad */
+.c-card-bottom {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.c-qty-label {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #a09286;
+}
+.c-qty-form { margin: 0; }
+.c-qty {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ddd6cd;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.c-qty-btn {
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    font-size: 1.05rem;
+    color: #5a4f43;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s;
+    padding: 0;
+    line-height: 1;
+}
+.c-qty-btn:hover {
+    background-color: #f0ede8;
+}
+.c-qty-input {
+    width: 36px;
+    height: 32px;
+    border: none;
+    border-left: 1px solid #ddd6cd;
+    border-right: 1px solid #ddd6cd;
+    text-align: center;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    color: #1c1710;
+    background: none;
+    -moz-appearance: textfield;
+}
+.c-qty-input::-webkit-outer-spin-button,
+.c-qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.c-qty-input:focus { outline: none; }
+
+/* Columna derecha: basura + subtotal */
+.c-card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 90px;
+}
+
+/* Botón basura */
+.c-delete-btn {
+    width: 32px;
+    height: 32px;
+    background-color: #fdf0ee;
+    border: none;
+    border-radius: 6px;
+    color: #d9836a;
+    font-size: 0.82rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+}
+.c-delete-btn:hover {
+    background-color: #f5d6ce;
+    color: #b85030;
+}
+
+.c-card-subtotal {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1c1710;
+    margin: 0;
+}
+
+/* Link volver */
+.c-link-back {
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: #a09286;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-top: 8px;
+    display: inline-block;
+    transition: color 0.2s;
+}
+.c-link-back:hover { color: #1c1710; }
+
+/* ============================================================
+   RESUMEN
+   ============================================================ */
+
+.c-summary {
+    position: sticky;
+    top: 88px;
+}
+
+.c-summary-inner {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 28px 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.c-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: #5a4f43;
+}
+
+.c-summary-note {
+    font-size: 0.75rem;
+    color: #a09286;
+}
+.c-summary-note span { font-style: italic; }
+
+.c-summary-sep {
+    height: 1px;
+    background-color: #e8e2db;
+    margin: 4px 0;
+}
+
+.c-summary-total {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #1c1710;
+}
+
+/* Botón de pago */
+.c-btn-pay {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    background-color: #8b6b5c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.22s;
+    margin-top: 4px;
+}
+.c-btn-pay:hover { background-color: #6e5244; }
+
+/* ============================================================
+   CARRITO VACÍO
+   ============================================================ */
+
+.c-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 80px 0;
+    text-align: center;
+}
+.c-empty p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: #a09286;
+    margin: 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 780px) {
+    .c-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .c-summary { position: static; }
+}
+
+@media (max-width: 520px) {
+    .c-page { padding: 28px 16px 60px; }
+    .c-header-inner { padding: 0 16px; }
+
+    .c-card {
+        grid-template-columns: 72px 1fr auto;
+        gap: 14px;
+        padding: 16px;
+    }
+    .c-card-img { width: 72px; height: 72px; }
+    .c-card-right { min-height: 72px; }
+
+    .c-card-bottom { flex-wrap: wrap; gap: 8px; }
+
+    .carrito-page .main-menu ul { gap: 16px; }
+    .carrito-page .main-menu ul li a { font-size: 0.72rem; }
 }

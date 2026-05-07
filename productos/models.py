@@ -10,15 +10,29 @@ class Producto(models.Model):
         ('ceramica', 'Cerámica'),
         ('acuarelas', 'Acuarelas'),
         ('cuadros', 'Cuadros'),
+        ('wedding', 'Wedding'),
     ]
-    tipo = models.CharField(max_length=20, choices=TIPO_CHOICES, default='ceramica') 
+    tipo = models.CharField(max_length=20, choices=TIPO_CHOICES, default='ceramica')
+    destacado = models.BooleanField(default=False, help_text='Aparece en la sección Best Sellers')
     Diseño = models.CharField(max_length=200, default='Diseño predeterminado')
     Tamaño = models.CharField(max_length=200, default='Tamaño predeterminado')
     Descripcion = models.TextField(default='Descripción predeterminada')
     Precio = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
- 
+    descuento = models.PositiveSmallIntegerField(default=0, help_text='Porcentaje de descuento (0-100)')
+    stock = models.PositiveIntegerField(default=0)
+
+    @property
+    def precio_final(self):
+        if self.descuento:
+            return round(self.Precio * (1 - self.descuento / 100), 2)
+        return self.Precio
+
+    @property
+    def tiene_descuento(self):
+        return self.descuento > 0
+
     def __str__(self):
-        return self.Titulo  #Significa que cuando Django (o vos) quiera imprimir ese objeto, lo que va a mostrar es el contenido de self.Titulo, o sea, el título del producto de cerámica.
+        return self.Titulo
     
 
 class ProductoImagen(models.Model):

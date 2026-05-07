@@ -3,37 +3,387 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pedir Presupuesto</title>
-    <link rel="stylesheet" href="{% static 'css/presupuesto.css' %}">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-     {% include "navbar.html" %}
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 
+    <style>
+        /* ── Page ───────────────────────────────────────────── */
+        .presupuesto-wrap {
+            background: #f5f3ef;
+            padding: 80px 0 100px;
+        }
+
+        /* ── Intro title ────────────────────────────────────── */
+        .presupuesto-intro {
+            text-align: center;
+            margin-bottom: 52px;
+        }
+        .presupuesto-intro h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: #1c1710;
+            margin: 0 0 12px;
+            letter-spacing: .01em;
+        }
+        .presupuesto-intro p {
+            font-family: 'Open Sans', sans-serif;
+            font-size: .9rem;
+            color: #8a7e72;
+            margin: 0;
+            letter-spacing: .04em;
+        }
+
+        /* ── Form card ──────────────────────────────────────── */
+        .pres-card {
+            background: #fff;
+            border-radius: 4px;
+            padding: 52px 56px;
+            max-width: 740px;
+            margin: 0 auto;
+            box-shadow: 0 2px 24px rgba(0,0,0,.06);
+        }
+
+        /* ── Field blocks ───────────────────────────────────── */
+        .pres-field {
+            margin-bottom: 40px;
+        }
+        .pres-field:last-of-type {
+            margin-bottom: 0;
+        }
+        .pres-label {
+            display: block;
+            font-family: 'Open Sans', sans-serif;
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #5D7C43;
+            margin-bottom: 14px;
+        }
+
+        /* ── Text input ─────────────────────────────────────── */
+        .pres-input {
+            width: 100%;
+            border: none;
+            border-bottom: 1.5px solid #d6cfc6;
+            background: transparent;
+            padding: 8px 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: #1c1710;
+            outline: none;
+            transition: border-color .2s;
+        }
+        .pres-input:focus {
+            border-bottom-color: #5D7C43;
+        }
+        .pres-input::placeholder {
+            color: #c5bdb5;
+            font-style: italic;
+        }
+
+        /* ── Select ─────────────────────────────────────────── */
+        .pres-select {
+            width: 100%;
+            border: none;
+            border-bottom: 1.5px solid #d6cfc6;
+            background: transparent;
+            padding: 8px 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: #1c1710;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235d7c43' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            transition: border-color .2s;
+        }
+        .pres-select:focus {
+            border-bottom-color: #5D7C43;
+        }
+
+        /* ── Pill options (radio) ───────────────────────────── */
+        .pres-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .pres-options input[type="radio"] {
+            display: none;
+        }
+        .pres-options label {
+            display: inline-block;
+            padding: 10px 22px;
+            border: 1.5px solid #d6cfc6;
+            border-radius: 30px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: .82rem;
+            color: #5a4f43;
+            cursor: pointer;
+            transition: all .2s;
+            letter-spacing: .02em;
+        }
+        .pres-options label:hover {
+            border-color: #5D7C43;
+            color: #5D7C43;
+        }
+        .pres-options input[type="radio"]:checked + label {
+            background: #5D7C43;
+            border-color: #5D7C43;
+            color: #fff;
+        }
+
+        /* ── Textarea ───────────────────────────────────────── */
+        .pres-textarea {
+            width: 100%;
+            border: 1.5px solid #d6cfc6;
+            border-radius: 4px;
+            background: #faf9f7;
+            padding: 14px 16px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: .88rem;
+            color: #1c1710;
+            outline: none;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color .2s;
+            line-height: 1.6;
+        }
+        .pres-textarea:focus {
+            border-color: #5D7C43;
+        }
+        .pres-textarea::placeholder {
+            color: #c5bdb5;
+            font-style: italic;
+        }
+
+        /* ── Divider ────────────────────────────────────────── */
+        .pres-divider {
+            height: 1px;
+            background: #ede9e3;
+            margin: 40px 0;
+        }
+
+        /* ── Submit button ──────────────────────────────────── */
+        .pres-submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background: #5D7C43;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background .2s;
+            margin-top: 44px;
+        }
+        .pres-submit:hover {
+            background: #b8d4a6;
+        }
+        .pres-submit i {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 640px) {
+            .pres-card { padding: 36px 24px; }
+            .presupuesto-intro h2 { font-size: 2.2rem; }
+        }
+
+        #sticker {
+            position: fixed !important;
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+            transition: background-color 0.3s, padding 0.3s;
+            background-color: transparent;
+            padding: 25px 0;
+        }
+        #sticker.nav-scrolled {
+            background-color: #5D7C43;
+            padding: 15px 0;
+        }
+    </style>
 </head>
 <body>
 
-<div class="signup-container">
-    <!-- Izquierda con ilustración -->
-    <div class="left-container">
-        <h1>PRESUPUESTO</h1>
-        <div class="puppy">
-            <img src="{% static 'img/ceramicafoto.jpg' %}" alt="Presupuesto">
-            <p>¡Hola! Soy Laura y estoy para ayudarte a armar tu propio taller. Animate a crear piezas únicas y personalizadas. Si estás interesado en un presupuesto, por favor completa el formulario a la derecha y me pondré en contacto contigo lo antes posible.</p>
+    <!-- header -->
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        {% include "navbar.html" %}
+                        <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                        <div class="mobile-menu"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Derecha con formulario -->
-    <div class="right-container">
-        <h1>Completá tu pedido de presupuesto</h1>
-        <form method="POST" action="">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Enviar y abrir WhatsApp</button>
-        </form>
+    <!-- hero -->
+    <div class="breadcrumb-section">
+        <video autoplay muted loop playsinline class="background-video">
+            <source src="{% static 'video/presupuesto.mp4' %}" type="video/mp4">
+        </video>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Workshops de cerámica</p>
+                        <h1>Presupuesto</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <!-- formulario -->
+    <div class="presupuesto-wrap">
+        <div class="container">
+
+            <div class="presupuesto-intro">
+                <h2>Tu evento, a tu medida</h2>
+                <p>Completá los datos y te escribo por WhatsApp con el presupuesto.</p>
+            </div>
+
+            <form method="POST" action="{% url 'pedir_presupuesto' %}">
+                {% csrf_token %}
+                <div class="pres-card">
+
+                    <!-- Nombre -->
+                    <div class="pres-field">
+                        <label class="pres-label" for="nombre">Tu nombre</label>
+                        <input type="text" id="nombre" name="nombre" class="pres-input"
+                               placeholder="¿Cómo te llamás?" required>
+                    </div>
+
+                    <div class="pres-divider"></div>
+
+                    <!-- Cantidad de personas -->
+                    <div class="pres-field">
+                        <label class="pres-label" for="personas">Cantidad de personas</label>
+                        <select id="personas" name="personas" class="pres-select" required>
+                            <option value="" disabled selected>Seleccioná una opción</option>
+                            <option value="1 a 5 personas">1 a 5 personas</option>
+                            <option value="5 a 10 personas">5 a 10 personas</option>
+                            <option value="10 a 15 personas">10 a 15 personas</option>
+                            <option value="15 a 20 personas">15 a 20 personas</option>
+                            <option value="20 a 25 personas">20 a 25 personas</option>
+                        </select>
+                    </div>
+
+                    <div class="pres-divider"></div>
+
+                    <!-- Piezas a pintar -->
+                    <div class="pres-field">
+                        <span class="pres-label">Piezas a pintar</span>
+                        <div class="pres-options">
+                            <input type="radio" id="pp-misma" name="piezas_pintar"
+                                   value="Misma pieza para todos" required>
+                            <label for="pp-misma">Misma pieza para todos</label>
+
+                            <input type="radio" id="pp-eleccion" name="piezas_pintar"
+                                   value="Pieza a elección de cada persona">
+                            <label for="pp-eleccion">Pieza a elección de cada persona</label>
+                        </div>
+                    </div>
+
+                    <div class="pres-divider"></div>
+
+                    <!-- Diseño -->
+                    <div class="pres-field">
+                        <span class="pres-label">Diseño de las piezas</span>
+                        <div class="pres-options">
+                            <input type="radio" id="d-libre" name="diseno"
+                                   value="Dibujo libre" required>
+                            <label for="d-libre">Dibujo libre</label>
+
+                            <input type="radio" id="d-botanico" name="diseno"
+                                   value="Dibujo botánico">
+                            <label for="d-botanico">Dibujo botánico</label>
+                        </div>
+                    </div>
+
+                    <div class="pres-divider"></div>
+
+                    <!-- Catering -->
+                    <div class="pres-field">
+                        <span class="pres-label">Catering</span>
+                        <div class="pres-options">
+                            <input type="radio" id="cat-si" name="catering" value="si" required>
+                            <label for="cat-si">Sí</label>
+
+                            <input type="radio" id="cat-no" name="catering" value="no">
+                            <label for="cat-no">No</label>
+                        </div>
+                    </div>
+
+                    <div class="pres-divider"></div>
+
+                    <!-- Extras -->
+                    <div class="pres-field">
+                        <label class="pres-label" for="extras">Requisitos extra o preguntas</label>
+                        <textarea id="extras" name="extras" class="pres-textarea"
+                                  placeholder="Contame si tenés alguna idea especial, fecha en mente o pregunta..."></textarea>
+                    </div>
+
+                    <!-- Botón -->
+                    <button type="submit" class="pres-submit">
+                        <i class="fab fa-whatsapp"></i>
+                        Enviar por WhatsApp
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- fin formulario -->
+
+    <script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
+    <script src="{% static 'js/sticker.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <script>
+        (function () {
+            var navbar = document.getElementById('sticker');
+            function updateNav() {
+                if (window.scrollY > 60) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
+            }
+            window.addEventListener('scroll', updateNav, { passive: true });
+            updateNav();
+        })();
+    </script>
 
 </body>
 </html>
-

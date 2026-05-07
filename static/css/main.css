@@ -480,7 +480,7 @@ a.boxed-btn, a.bordered-btn, a.detail-btn {
 }
 
 .breadcrumb-text p {
-  color: #5d7c43;
+  color: #5D7C43;
   font-size: 18px;
   font-weight: 700;
   text-transform: uppercase;
@@ -627,7 +627,7 @@ ul.sub-menu li:last-child {
 }
 
 .mean-bar a.meanmenu-reveal {
-  background-color: #5d7c43;
+  background-color: #5D7C43;
 }
 
 .main-menu-wrap {
@@ -676,7 +676,7 @@ nav.mean-nav > ul > li:first-child > a {
 }
 
 .top-header-area.sepherate-header ul li > a, .top-header-area.sepherate-header .header-icons a {
-  color: #5d7c43;
+  color: #5D7C43;
 }
 
 nav.main-menu ul ul.sub-menu li {
@@ -691,12 +691,12 @@ nav.main-menu ul ul.sub-menu li a {
 }
 
 nav.main-menu ul li.current-list-item > a {
-  color: #5d7c43
+  color: #5D7C43
   ;
 }
 
 nav.main-menu li:hover > a {
-  color: #5d7c43;
+  color: #5D7C43;
 }
 
 nav.main-menu li a {
@@ -712,7 +712,7 @@ nav.main-menu li a {
 }
 
 .top-header-area .header-icons a:hover {
-  color: #5d7c43;
+  color: #5D7C43;
 }
 
 .sticky-wrapper {
@@ -724,7 +724,7 @@ nav.main-menu li a {
 }
 
 .sticky-wrapper.is-sticky .top-header-area {
-  background-color: #5d7c43;
+  background-color: #5D7C43;
   padding: 15px 0;
 }
 
@@ -786,7 +786,7 @@ a.mobile-show {
   padding: 15px;
   width: 60%;
   background-color: transparent;
-  border-bottom: 1px solid #5d7c43;
+  border-bottom: 1px solid #5D7C43;
   display: block;
   margin: 0 auto;
   text-align: center;
@@ -798,7 +798,7 @@ a.mobile-show {
 
 .search-bar-tablecell button[type=submit] {
   border: none;
-  background-color: #5d7c43;
+  background-color: #5D7C43;
   padding: 15px 30px;
   cursor: pointer;
   display: inline-block;
@@ -1412,7 +1412,7 @@ html, body {
 }
 
 .hero-text p.subtitle {
-  color: #5d7c43;
+  color: #5D7C43;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -2478,7 +2478,7 @@ a.cart-btn {
   font-family: 'Poppins', sans-serif;
   display: inline-block;
   margin-top: 15px;
-  background-color: #5d7c43;
+  background-color: #5D7C43;
   color: #fff;
   padding: 10px 20px;
 }
@@ -2490,7 +2490,7 @@ a.cart-btn i {
 a.detail-btn {
   font-family: 'Poppins', sans-serif;
   display: inline-block;
-  background-color: #5d7c43;
+  background-color: #5D7C43;
   
   color: #fff;
   padding: 10px 20px;
@@ -2824,14 +2824,14 @@ table.order-details tbody td {
 .product-filters ul li a {
     margin-top: 0 !important; 
     color: #fff !important;        /* Letras blancas */
-    background-color:  #5d7c43 !important;
+    background-color:  #5D7C43 !important;
     border-color: #fff !important;
 }
 
 .product-filters ul li.active,
 .product-filters ul li.active a {
    margin-top: 0 !important; 
-    background-color:  #5d7c43 !important;
+    background-color:  #5D7C43 !important;
     color: #fff !important;
     border-color: #fff !important;
 }
@@ -2848,10 +2848,6 @@ table.order-details tbody td {
     padding-top: 10px;
 }
 
-.detalle-producto .top-header-area {
-    background: #5a7d3a !important;
-    color: #fff;
-}
 
 @media (max-width: 767px) {
     .product-filters ul li {
@@ -2859,4 +2855,42 @@ table.order-details tbody td {
         margin: 8px;
         padding: 6px 12px;
     }
+}
+
+/* ── Mobile-only overrides ── */
+@media (max-width: 767px) {
+
+    /* Hamburger verde oscuro */
+    .mean-bar a.meanmenu-reveal {
+        background-color: #5D7C43 !important;
+    }
+
+    /* "Arte + Diseño" en hero inicio */
+    .hero-text p.subtitle {
+        color: #5D7C43 !important;
+    }
+
+    /* Texto arriba del título en páginas con video (Productos, Presupuesto) */
+    .breadcrumb-text p {
+        color: #5D7C43 !important;
+    }
+
+    /* Botones de producto */
+    a.cart-btn {
+        background-color: #5D7C43 !important;
+    }
+    a.detail-btn {
+        background-color: #5D7C43 !important;
+    }
+
+    /* Filtros: verde oscuro y más pequeños */
+    .product-filters ul li a,
+    .product-filters ul li.active a {
+        background-color: #5D7C43 !important;
+        color: #fff !important;
+        font-size: .68rem !important;
+        padding: 5px 13px !important;
+        font-weight: 600 !important;
+    }
+}
 }

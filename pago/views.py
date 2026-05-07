@@ -1,39 +1,41 @@
 # pago/views.py
-from django.shortcuts import render
-from productos.models import Producto   # <-- importamos el modelo real
+from urllib.parse import quote
+from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
-from django.shortcuts import redirect
-                       
+from productos.models import Producto
+
+WHATSAPP_NUMBER = '5493515101874'
+
+
 def carrito(request):
-    carrito = request.session.get('carrito', {})           # {'1': 2, '5': 1, ...}
+    carrito = request.session.get('carrito', {})
     productos = Producto.objects.filter(id__in=carrito.keys())
-    
+
     carrito_detalle = []
-    for producto in productos:                             # <--- productos, no producto
+    for producto in productos:
         cantidad = carrito.get(str(producto.id), 0)
-        subtotal = producto.Precio * cantidad
+        subtotal = producto.precio_final * cantidad
         carrito_detalle.append({
-            'producto':   producto,
-            'cantidad':   cantidad,
-            'subtotal':   subtotal,
+            'producto': producto,
+            'cantidad': cantidad,
+            'subtotal': subtotal,
         })
 
     total = sum(item['subtotal'] for item in carrito_detalle)
 
     return render(request, 'carrito.html', {
         'carrito': carrito_detalle,
-        'total':   total,
+        'total': total,
     })
-
 
 
 @require_POST
 def quitar_del_carrito(request, producto_id):
     carrito = request.session.get('carrito', {})
-    # elimina si existe (no da error si no está)
     carrito.pop(str(producto_id), None)
     request.session['carrito'] = carrito
-    return redirect('carrito')   # o 'pago:carrito' si usás namespace
+    return redirect('carrito')
+
 
 @require_POST
 def actualizar_cantidad(request):
@@ -45,12 +47,34 @@ def actualizar_cantidad(request):
 
     carrito = request.session.get('carrito', {})
 
-    # si el usuario puso cantidad <= 0, podés decidir quitar el producto:
     if cantidad <= 0:
         carrito.pop(str(producto_id), None)
     else:
         carrito[str(producto_id)] = cantidad
 
     request.session['carrito'] = carrito
-    # mejor redirect para aplicar Post/Redirect/Get y evitar reposts al recargar
-    return redirect('carrito')   # o 'pago:carrito' si usás namespace
+    return redirect('carrito')
+
+
+@require_POST
+def realizar_pedido(request):
+    carrito_session = request.session.get('carrito', {})
+    if not carrito_session:
+        return redirect('carrito')
+
+    productos = Producto.objects.filter(id__in=carrito_session.keys())
+
+    lineas = ['Hola Laura! Quiero realizar el siguiente pedido:', '']
+    total = 0
+    for producto in productos:
+        cantidad = carrito_session.get(str(producto.id), 1)
+        subtotal = producto.precio_final * int(cantidad)
+        total += subtotal
+        lineas.append(f'- {producto.Titulo} x{cantidad} — ${subtotal}')
+
+    lineas.append('')
+    lineas.append(f'Total: ${total}')
+
+    mensaje = '\n'.join(lineas)
+    url = f'https://wa.me/{WHATSAPP_NUMBER}?text={quote(mensaje)}'
+    return redirect(url)

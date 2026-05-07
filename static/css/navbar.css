@@ -1,26 +1,25 @@
-.main-menu ul li a {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #5d7c43;  /* color verde desde el principio */
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.main-menu ul {
+/* Los estilos principales de la navbar vienen de main.css.
+   Este archivo es override para asegurar coherencia visual. */
+nav.main-menu ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 40px;
+    gap: 36px;
+    justify-content: center;
 }
 
-.main-menu ul li a {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #5d7c43;  /* color verde desde el principio */
+nav.main-menu ul li a {
+    color: #fff;
+    font-weight: 700;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: opacity 0.2s;
+    padding: 15px 0;
+    display: block;
 }
-.main-menu ul li a:hover {
-    color: #5d7c43;
+
+nav.main-menu ul li a:hover {
+    opacity: 0.75;
+    color: #fff;
+    text-decoration: none;
 }

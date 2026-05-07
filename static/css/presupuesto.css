@@ -1,146 +1,259 @@
+/* ── Base ─────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f5fff1;
+    color: rgba(0,0,0,.8);
+}
+
+/* ── Page wrapper ─────────────────────────────────────── */
+.presupuesto-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+}
+
+/* ── Header banner ────────────────────────────────────── */
+.presupuesto-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: #5D7C43;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+    color: #fff;
+}
+
+.presupuesto-header .header-img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    flex-shrink: 0;
+}
+
+.presupuesto-header .header-text h1 {
+    margin: 0 0 8px;
+    font-size: 1.7rem;
+}
+
+.presupuesto-header .header-text p {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.92;
+    line-height: 1.5;
+}
+
+/* ── Form card ────────────────────────────────────────── */
+.form-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 36px 40px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.09);
+}
+
+/* ── Form sections ────────────────────────────────────── */
+.form-section {
+    margin-bottom: 32px;
+}
+
+.section-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #5D7C43;
+    margin: 0 0 14px;
+}
+
+.section-hint {
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* ── Pill radio group ─────────────────────────────────── */
+.pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.pill-group input[type="radio"] {
+    display: none;
+}
+
+.pill-group label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 14px 20px;
+    border: 2px solid #c8dfc0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #f5fff1;
+    min-width: 110px;
+    text-align: center;
+}
+
+.pill-group label:hover {
+    border-color: #8cad7d;
+    background: #edf8e4;
+}
+
+.pill-group input[type="radio"]:checked + label {
+    background: #5D7C43;
+    border-color: #5D7C43;
+    color: #fff;
+}
+
+.pill-group .pill-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.pill-group strong {
+    font-size: 0.9rem;
+}
+
+.pill-group small {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+/* ── Piece catalog grid ───────────────────────────────── */
+.piezas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.pieza-card input[type="checkbox"] {
+    display: none;
+}
+
+.pieza-card label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    border: 2px solid #c8dfc0;
+    border-radius: 10px;
+    padding: 10px 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #f5fff1;
+    text-align: center;
+}
+
+.pieza-card label:hover {
+    border-color: #8cad7d;
+    background: #edf8e4;
+}
+
+.pieza-card input[type="checkbox"]:checked + label {
+    border-color: #5D7C43;
+    background: #d6edcc;
+    box-shadow: 0 0 0 2px #5D7C43;
+}
+
+.pieza-card label img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.pieza-card label span {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #5D7C43;
+    line-height: 1.2;
+}
+
+/* ── Contact fields ───────────────────────────────────── */
+.contacto-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field-group label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #5D7C43;
+}
+
+.field-group input {
+    padding: 10px 12px;
+    border: 1.5px solid #c8dfc0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.field-group input:focus {
+    outline: none;
+    border-color: #5D7C43;
+}
+
+/* ── Submit button ────────────────────────────────────── */
+.btn-enviar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: inherit;
+    border: none;
+    border-radius: 10px;
+    background: #25D366;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+}
+
+.btn-enviar:hover {
+    background: #1ebe5a;
+}
+
+.btn-enviar .fab {
+    font-size: 1.25rem;
+}
 
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Montserrat', sans-serif;
-            background: #f5fff1;
-            color: rgba(0,0,0,.8);
-            display: grid;
-            justify-items: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 600px) {
+    .presupuesto-header {
+        flex-direction: column;
+        text-align: center;
+    }
 
-        .main-menu {
+    .form-card {
+        padding: 24px 18px;
+    }
 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 50px 50px;
-       
-        }
+    .contacto-fields {
+        grid-template-columns: 1fr;
+    }
 
-        .signup-container {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            max-width: 900px;
-            width: 100%;
-            background: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,.1);
-        }
-
-        .left-container {
-            background: #5d7c43;
-            color: rgba(0,0,0,.8);
-            text-align: center;
-            padding: 40px 20px;
-            position: relative;
-        }
-
-        .left-container h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .left-container h1 i {
-            background: #5d7c43;
-            border-radius: 50%;
-            color: #807182;
-            font-size: 24px;
-            margin-right: 5px;
-            padding: 10px;
-            transform: rotate(-45deg);
-        }
-
-        .left-container .puppy img {
-            width: 90%;
-          
-        }
-
-        .right-container {
-            background: #8cad7d;
-            padding: 40px;
-        }
-
-        .right-container h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        form label {
-            margin-top: 10px;
-            font-weight: 600;
-        }
-
-        form input, form select, form textarea {
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 4px;
-            border: 1px solid rgba(0,0,0,.1);
-            font-size: 14px;
-        }
-
-        .radio-container {
-            display: flex;
-            gap: 10px;
-            margin-top: 5px;
-        }
-
-        .radio-container label {
-            padding: 5px 10px;
-            border: 1px solid rgba(0,0,0,.1);
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .radio-container input[type="radio"] {
-            display: none;
-        }
-
-        .radio-container input[type="radio"]:checked + label {
-            background: #F7B1AB;
-            color: #fff;
-            border-color: rgba(0,0,0,.1);
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 4px;
-            background: #5d7c43;
-            color: #fff;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #5f5160;
-        }
-
-        @media (max-width: 900px) {
-            .signup-container {
-                grid-template-columns: 1fr;
-            }
-
-            .left-container, .right-container {
-                width: 100%;
-                padding: 20px;
-            }
-
-            .left-container .puppy img {
-                width: 50%;
-            }
-        }
-    
+    .piezas-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+}

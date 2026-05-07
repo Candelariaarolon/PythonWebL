@@ -13,13 +13,18 @@
 }
 
 .green-btn {
-    background-color: #4CAF50; /* Verde */
+    background-color: #5D7C43;
     border-radius: 20px;
     padding: 10px 20px;
     color: white;
     font-weight: bold;
-    display: block;        /* Fuerza que ocupe toda la línea */
-    margin-top: 10px;  
+    display: block;
+    margin-top: 10px;
+    border: none;
+    transition: background .2s;
+}
+.green-btn:hover {
+    background-color: #4a6434;
 }
 
 /* Flechas verdes y tamaño razonable */
@@ -27,7 +32,7 @@
 #carouselProducto .carousel-control-next i {
   margin-top: 200px;
   font-size: 2.5rem;
-  color: #4CAF50;
+  color: #5D7C43;
 }
 
 /* Asegurá visibilidad por encima de la imagen */

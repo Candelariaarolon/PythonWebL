@@ -1,183 +1,233 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tu Carrito</title>
 
-	<!-- title -->
-	<title>Cart</title>
-
-	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-	<!-- fontawesome -->
-    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/individual.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=2">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/carrito.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/carrito.css' %}?v=2">
+    <style>
+        /* Estilos críticos inline para garantizar que apliquen */
+        *,*::before,*::after{box-sizing:border-box}
+        body.carrito-page{background:#f0ede8;font-family:'Jost',sans-serif;font-weight:300;color:#1c1710;margin:0}
+        img{max-width:100%;height:auto}
 
+        .carrito-page .top-header-area{background:#5D7C43;position:relative;z-index:100}
+        .c-page{max-width:1100px;margin:0 auto;padding:44px 32px 80px}
+        .c-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:400;margin:0 0 32px}
+
+        /* Layout 2 columnas */
+        .c-layout{display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start}
+        .c-list{display:flex;flex-direction:column;gap:14px}
+
+        /* Tarjeta */
+        .c-card{background:#fff;border-radius:8px;padding:18px;display:grid;grid-template-columns:90px 1fr auto;gap:18px;align-items:start;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+
+        /* Imagen — forzado pequeño */
+        .c-card-img{width:90px!important;height:90px!important;min-width:90px;max-width:90px;border-radius:6px;overflow:hidden;background:#f0ede8;flex-shrink:0}
+        .c-card-img img{width:90px!important;height:90px!important;max-width:90px!important;max-height:90px!important;object-fit:cover;display:block}
+        .c-card-img-empty{width:90px;height:90px;background:#e8e3dc}
+
+        /* Info */
+        .c-card-body{display:flex;flex-direction:column;gap:4px;min-width:0}
+        .c-card-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:#1c1710;margin:0 0 4px;line-height:1.3}
+        .c-card-price{font-size:.85rem;color:#8a7e72;margin:0 0 12px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+        .price-old{text-decoration:line-through;color:#bbb3ab;font-size:.82em}
+        .price-pct{font-size:.75rem;color:#a05038;background:#f5ece8;padding:1px 6px;border-radius:3px}
+        .c-card-bottom{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+        .c-qty-label{font-size:.7rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:#a09286}
+
+        /* Qty */
+        .c-qty-form{margin:0}
+        .c-qty{display:inline-flex;align-items:center;border:1px solid #ddd6cd;border-radius:20px;overflow:hidden}
+        .c-qty-btn{width:32px;height:32px;background:none;border:none;font-size:1.05rem;color:#5a4f43;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:background .15s}
+        .c-qty-btn:hover{background:#f0ede8}
+        .c-qty-input{width:36px;height:32px;border:none;border-left:1px solid #ddd6cd;border-right:1px solid #ddd6cd;text-align:center;font-family:'Jost',sans-serif;font-size:.85rem;color:#1c1710;background:none;-moz-appearance:textfield}
+        .c-qty-input::-webkit-outer-spin-button,.c-qty-input::-webkit-inner-spin-button{-webkit-appearance:none}
+        .c-qty-input:focus{outline:none}
+
+        /* Columna derecha */
+        .c-card-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:14px;min-height:90px}
+        .c-delete-btn{width:32px;height:32px;background:#fdf0ee;border:none;border-radius:6px;color:#d9836a;font-size:.82rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;padding:0}
+        .c-delete-btn:hover{background:#f5d6ce;color:#b85030}
+        .c-card-subtotal{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:#1c1710;margin:0}
+
+        /* Link back */
+        .c-link-back{font-size:.72rem;color:#a09286;text-decoration:underline;text-underline-offset:3px;margin-top:8px;display:inline-block;transition:color .2s}
+        .c-link-back:hover{color:#1c1710}
+
+        /* Resumen */
+        .c-summary{position:sticky;top:20px}
+        .c-summary-inner{background:#fff;border-radius:8px;padding:24px 22px;box-shadow:0 1px 4px rgba(0,0,0,.07);display:flex;flex-direction:column;gap:10px}
+        .c-summary-row{display:flex;justify-content:space-between;align-items:baseline;font-size:.85rem;color:#5a4f43}
+        .c-summary-note{font-size:.75rem;color:#a09286}
+        .c-summary-note span{font-style:italic}
+        .c-summary-sep{height:1px;background:#e8e2db;margin:4px 0}
+        .c-summary-total{font-weight:500;font-size:.95rem;color:#1c1710}
+        .c-btn-pay{display:block;width:100%;padding:13px 20px;background:#8b6b5c;color:#fff;border:none;border-radius:6px;font-family:'Jost',sans-serif;font-size:.73rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-align:center;cursor:pointer;transition:background .22s;margin-top:4px}
+        .c-btn-pay:hover{background:#6e5244}
+
+        /* Vacío */
+        .c-empty{display:flex;flex-direction:column;align-items:center;gap:24px;padding:80px 0;text-align:center}
+        .c-empty p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;color:#a09286;margin:0}
+
+        /* Responsive */
+        @media(max-width:780px){.c-layout{grid-template-columns:1fr}.c-summary{position:static}}
+        @media(max-width:767px){.c-page{padding-top:80px !important}}
+        @media(max-width:520px){
+            .c-page{padding:28px 16px 60px}
+            .c-card{grid-template-columns:72px 1fr auto;gap:12px;padding:14px}
+            .c-card-img{width:72px!important;height:72px!important;min-width:72px;max-width:72px}
+            .c-card-img img{width:72px!important;height:72px!important;max-width:72px!important;max-height:72px!important}
+            .c-card-right{min-height:72px}
+        }
+    </style>
 </head>
-<body>
-	
-	<!-- header -->
-	<div class="top-header-area" id="sticker">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-sm-12 text-center">
-					<div class="main-menu-wrap">
-						<!-- logo -->
+<body class="carrito-page">
+
+    <!-- NAV -->
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
                         {% include "navbar.html" %}
-						<div class="site-logo">
-							<a href="index.html">
-								<img src="assets/img/logo.png" alt="">
-							</a>
-							
-						</div>
-						<!-- logo -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end header -->
+                        <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                        <div class="mobile-menu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- PÁGINA -->
+    <div class="c-page">
 
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						
-						<h1>Tu Carrito</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
+        <h1 class="c-title">Tu Carrito</h1>
 
-	<!-- cart -->
-	<div class="cart-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-md-12">
-					<div class="cart-table-wrap">
-								<h2>Tus Elegidos</h2>
-					
+        {% if carrito %}
 
-	<table class="cart-table">
-  	<thead>
-    <tr>
-      <th class="product-remove">Eliminar Producto</th>
-      <th class="product-image"></th>
-      <th class="product-name"></th>
-      <th class="product-price">Precio Individual</th>
-      <th class="product-quantity">Cantidad</th>
-      <th class="product-total">Total</th>
-    </tr>
-  </thead>
+        <div class="c-layout">
 
-  <tbody>
-    {% if carrito %}
-      {% for item in carrito %}
+            <!-- LISTA DE PRODUCTOS -->
+            <div class="c-list">
+                {% for item in carrito %}
+                <div class="c-card">
 
+                    <!-- Imagen -->
+                    <div class="c-card-img">
+                        {% if item.producto.foto %}
+                            <img src="{{ item.producto.foto.url }}" alt="{{ item.producto.Titulo }}">
+                        {% else %}
+                            <div class="c-card-img-empty"></div>
+                        {% endif %}
+                    </div>
 
-        <tr>
-          <td class="product-remove">
-            <!-- botón quitar (opcional) -->
-            <form method="post" action="{% url 'quitar_del_carrito' item.producto.id %}">
-              {% csrf_token %}
-              <input type="hidden" name="producto_id" value="{{ item.producto.id }}">
-              <button type="submit" class="remove-btn">×</button>
-            </form>
-          </td>
+                    <!-- Info -->
+                    <div class="c-card-body">
+                        <p class="c-card-name">{{ item.producto.Titulo }}</p>
+                        <p class="c-card-price">
+                            {% if item.producto.tiene_descuento %}
+                                <span class="price-old">${{ item.producto.Precio }}</span>
+                                <span class="price-pct">−{{ item.producto.descuento }}%</span>
+                                ${{ item.producto.precio_final }}
+                            {% else %}
+                                ${{ item.producto.Precio }}
+                            {% endif %}
+                        </p>
 
-          <td class="product-image">
-            {% if item.producto.foto %}
-              <img src="{{ item.producto.foto.url }}" alt="{{ item.producto.Titulo }}" style="max-width:80px;">
-            {% else %}
-              <img src="{% static 'img/default-product.png' %}" alt="sin imagen" style="max-width:80px;">
-            {% endif %}
-          </td>
+                        <div class="c-card-bottom">
+                            <span class="c-qty-label">Cantidad</span>
+                            <form method="post" action="{% url 'actualizar_cantidad' %}" class="c-qty-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="producto_id" value="{{ item.producto.id }}">
+                                <div class="c-qty">
+                                    <button type="button" class="c-qty-btn" onclick="changeQty(this,-1)">−</button>
+                                    <input type="number" name="cantidad" min="1" value="{{ item.cantidad }}"
+                                           class="c-qty-input" onchange="this.form.submit()">
+                                    <button type="button" class="c-qty-btn" onclick="changeQty(this,1)">+</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
+                    <!-- Subtotal -->
+                    <div class="c-card-right">
+                        <form method="post" action="{% url 'quitar_del_carrito' item.producto.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="c-delete-btn" title="Eliminar">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                        <p class="c-card-subtotal">${{ item.subtotal }}</p>
+                    </div>
 
-          <td class="product-name">{{ item.producto.Titulo }}</td>
-          <td class="product-price">${{ item.producto.Precio }}</td>
+                </div>
+                {% endfor %}
 
+                <a href="{% url 'filtrar_productos' %}" class="c-link-back">← Seguir explorando</a>
+            </div>
 
-          <td class="product-quantity">
-            <!-- actualizar cantidad -->
-            <form method="post" action="{% url 'actualizar_cantidad' %}">
-              {% csrf_token %}
-              <input type="hidden" name="producto_id" value="{{ item.producto.id }}">
-              <input type="number" name="cantidad" min="1" value="{{ item.cantidad }}" style="width:60px;">
-              <button type="submit">Actualizar</button>
-            </form>
-          </td>
+            <!-- RESUMEN -->
+            <aside class="c-summary">
+                <div class="c-summary-inner">
+                    <div class="c-summary-row">
+                        <span>Subtotal</span>
+                        <span>${{ total }}</span>
+                    </div>
+                    <div class="c-summary-row c-summary-note">
+                        <span>Envío calculado al finalizar</span>
+                    </div>
+                    <div class="c-summary-sep"></div>
+                    <div class="c-summary-row c-summary-total">
+                        <span>Total</span>
+                        <span>${{ total }}</span>
+                    </div>
+                    <form method="post" action="{% url 'pagar' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="c-btn-pay">Realizar Pedido por WhatsApp →</button>
+                    </form>
+                </div>
+            </aside>
 
-          <td class="product-total">${{ item.subtotal }}</td>
-        </tr>
-      {% endfor %}
-    {% else %}
-      <tr>
-        <td colspan="6">Tu carrito está vacío</td>
-      </tr>
-    {% endif %}
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
+        </div>
 
-<!-- total -->
-<!-- total -->
-<div class="cart-summary">
-  <p>Total: ${{ total }}</p>
+        {% else %}
 
+        <div class="c-empty">
+            <p>Tu carrito está vacío.</p>
+            <a href="{% url 'filtrar_productos' %}" class="c-btn-pay" style="text-decoration:none; display:inline-block;">
+                Ver productos →
+            </a>
+        </div>
 
-<a href="{% url 'productos_presupuesto' %}" class="cart-buttons">
-    			<i class="carrito"></i> Hacer Pedido
-</a>
-</div>
+        {% endif %}
 
+    </div>
 
-	
-
-	
-	<!-- jquery -->
-	<script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
-	<!-- bootstrap -->
-	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-	<!-- count down -->
-	<script src="{% static 'js/jquery.countdown.js' %}"></script>
-	<!-- isotope -->
-	<script src="{% static 'js/jquery.isotope-3.0.6.min.js' %}"></script>
-	<!-- waypoints -->
-	<script src="{% static 'js/waypoints.js' %}"></script>
-	<!-- owl carousel -->
-	<script src="{% static 'js/owl.carousel.min.js' %}"></script>
-	<!-- magnific popup -->
-	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-	<!-- mean menu -->
-	<script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
-	<!-- sticker js -->
-	<script src="{% static 'js/sticker.js' %}"></script>
-	<!-- main js -->
-	<script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
+    <script src="{% static 'js/sticker.js' %}"></script>
+    <script>
+        function changeQty(btn, delta) {
+            var input = btn.parentElement.querySelector('.c-qty-input');
+            var val = Math.max(1, parseInt(input.value) + delta);
+            input.value = val;
+            btn.closest('form').submit();
+        }
+    </script>
 
 </body>
 </html>
