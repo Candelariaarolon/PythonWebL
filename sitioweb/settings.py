@@ -66,16 +66,10 @@ WSGI_APPLICATION = 'sitioweb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'clientes',           
-        'USER': 'root',            
-        'PASSWORD': 'Clocks123',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-#mysqlclient es una librería de Python que permite que Django (que está escrito en Python) pueda conectarse y hablar con una base de datos MySQL
 
 
 # Password validation
