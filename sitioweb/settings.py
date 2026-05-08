@@ -8,7 +8,7 @@ DEBUG = True
 
 #lista de hosts permitidos
 # En producción, debes agregar los dominios permitidos
-ALLOWED_HOSTS = ['192.168.0.247', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['candelariarolon.pythonanywhere.com', '192.168.0.247', 'localhost', '127.0.0.1']
 
 #agrego mis propias apps
 INSTALLED_APPS = [
