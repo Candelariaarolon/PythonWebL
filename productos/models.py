@@ -11,8 +11,19 @@ class Producto(models.Model):
         ('acuarelas', 'Acuarelas'),
         ('cuadros', 'Cuadros'),
         ('wedding', 'Wedding'),
+        ('personalizado', 'Personalizado'),
     ]
     tipo = models.CharField(max_length=20, choices=TIPO_CHOICES, default='ceramica')
+
+    COLECCION_CHOICES = [
+        ('limones', 'Limones'),
+        ('morrisyco', 'Morris&Co'),
+        ('olivos', 'Olivos'),
+        ('magnolias', 'Magnolias'),
+        ('cerezos', 'Cerezos'),
+        ('mediterraneo', 'Mediterráneo'),
+    ]
+    coleccion = models.CharField(max_length=20, choices=COLECCION_CHOICES, blank=True, null=True, verbose_name='Colección')
     destacado = models.BooleanField(default=False, help_text='Aparece en la sección Best Sellers')
     Diseño = models.CharField(max_length=200, default='Diseño predeterminado')
     Tamaño = models.CharField(max_length=200, default='Tamaño predeterminado')

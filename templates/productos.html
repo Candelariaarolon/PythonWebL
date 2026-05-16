@@ -109,57 +109,67 @@
 		.owl-carousel .owl-dot span { background: #c9c0b5 !important; }
 		.owl-carousel .owl-dot.active span { background: #5D7C43 !important; }
 
-		/* ── Categories ─────────────────────────────────────── */
-		.cat-section {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			grid-template-rows: 50vh 50vh;
-			min-height: 100vh;
+		/* ── Colecciones grid ───────────────────────────────── */
+		.colecciones-nav {
+			background: #faf8f5;
+			padding: 50px 0 40px;
 		}
-		.cat-tile {
-			position: relative;
-			overflow: hidden;
-			display: flex;
-			align-items: flex-end;
-			padding: 36px 32px;
-			text-decoration: none;
-			cursor: pointer;
-		}
-		.cat-tile-bg {
-			position: absolute;
-			inset: 0;
-			background-size: cover;
-			background-position: center;
-			transition: transform .6s ease;
-		}
-		.cat-tile:hover .cat-tile-bg { transform: scale(1.04); }
-		.cat-tile-overlay {
-			position: absolute;
-			inset: 0;
-			background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.1) 60%, transparent 100%);
-		}
-		.cat-tile-content {
-			position: relative;
-			z-index: 2;
-		}
-		.cat-tile-name {
+		.colecciones-nav .section-title-col {
 			font-family: 'Cormorant Garamond', serif;
-			font-size: 2.2rem;
+			font-size: 2.4rem;
 			font-weight: 300;
-			color: #fff;
-			margin: 0 0 10px;
-			line-height: 1.1;
+			color: #1c1710;
 			letter-spacing: .02em;
+			margin-bottom: 30px;
+			text-align: center;
 		}
-		.cat-tile-link {
-			display: inline-block;
+		.coleccion-card {
+			display: block;
+			overflow: hidden;
+			border-radius: 6px;
+			box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+			background: #fff;
+			transition: transform 0.2s;
+			text-decoration: none;
+			color: inherit;
+		}
+		.coleccion-card:hover {
+			transform: translateY(-3px);
+			text-decoration: none;
+			color: inherit;
+		}
+		.coleccion-card img {
+			width: 100%;
+			height: 220px;
+			object-fit: cover;
+			display: block;
+		}
+		.coleccion-card-footer {
+			padding: 10px 12px 14px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.coleccion-card-footer h4 {
+			font-family: 'Cormorant Garamond', serif;
+			font-size: 1rem;
+			font-weight: 400;
+			color: #1c1710;
+			letter-spacing: .04em;
+			margin: 0;
+		}
+		.coleccion-card-footer .ver-col {
 			font-size: .68rem;
-			letter-spacing: .14em;
+			letter-spacing: .1em;
 			text-transform: uppercase;
-			color: #fff;
-			border-bottom: 1px solid rgba(255,255,255,.7);
-			padding-bottom: 2px;
-			font-family: 'Open Sans', sans-serif;
+			color: #5D7C43;
+			border-bottom: 1px solid #5D7C43;
+			padding-bottom: 1px;
+			white-space: nowrap;
+		}
+		@media (max-width: 767px) {
+			.coleccion-card img { height: 140px; }
+			.coleccion-card-footer { flex-direction: column; align-items: flex-start; gap: 4px; }
 		}
 
 		/* ── Product grid section ───────────────────────────── */
@@ -204,12 +214,6 @@
 		}
 
 		@media (max-width: 767px) {
-			.cat-section {
-				grid-template-columns: 1fr;
-				grid-template-rows: repeat(4, 55vw);
-				min-height: unset;
-			}
-			.cat-tile-name { font-size: 1.6rem; }
 			.bs-header { padding: 0 16px; }
 
 			/* Filtros: título arriba, pills abajo */
@@ -261,84 +265,84 @@
 	</div>
 	<!-- end hero banner -->
 
-	<!-- best sellers carousel -->
-	{% if best_sellers %}
-	<section class="best-sellers-section">
-		<div class="container-fluid px-4 px-md-5">
-			<div class="bs-header">
-				<h2>Best Sellers</h2>
-			</div>
-			<div class="owl-carousel best-sellers-carousel">
-				{% for producto in best_sellers %}
-				<div class="bs-card">
-					<a href="{% url 'producto_individual' producto.id %}">
-						{% if producto.foto %}
-							<img class="bs-card-img" src="{{ producto.foto.url }}" alt="{{ producto.Titulo }}">
-						{% else %}
-							<div class="bs-card-img-placeholder"></div>
-						{% endif %}
+
+	<!-- colecciones nav -->
+	<div class="colecciones-nav">
+		<div class="container">
+			<h3 class="section-title-col">Colecciones</h3>
+			<div class="row justify-content-center g-3">
+				<div class="col-lg-4 col-md-4 col-6 mb-3">
+					<a href="{% url 'filtrar_productos' %}?coleccion=limones#productos" class="coleccion-card">
+						<img src="{% static 'img/limones.jpg' %}" alt="Limones">
+						<div class="coleccion-card-footer">
+							<h4>Limones</h4>
+							<span class="ver-col">Ver colección</span>
+						</div>
 					</a>
-					<div class="bs-card-body">
-						<p class="bs-card-name">{{ producto.Titulo }}</p>
-						<p class="bs-card-price">
-							{% if producto.tiene_descuento %}
-								<span style="text-decoration:line-through;color:#bbb;margin-right:6px;">${{ producto.Precio }}</span>
-								${{ producto.precio_final }}
-							{% else %}
-								${{ producto.Precio }}
-							{% endif %}
-						</p>
-						<a href="{% url 'agregar_al_carrito_desde_lista' producto.id %}" class="bs-card-btn">Agregar al carrito</a>
-					</div>
 				</div>
-				{% endfor %}
+				<div class="col-lg-4 col-md-4 col-6 mb-3">
+					<a href="{% url 'filtrar_productos' %}?coleccion=morrisyco#productos" class="coleccion-card">
+						<img src="{% static 'img/MorrisCo.jpg' %}" alt="Morris&amp;Co">
+						<div class="coleccion-card-footer">
+							<h4>Morris&amp;Co</h4>
+							<span class="ver-col">Ver colección</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-4 col-6 mb-3">
+					<a href="{% url 'filtrar_productos' %}?coleccion=olivos#productos" class="coleccion-card">
+						<img src="{% static 'img/olivos.jpg' %}" alt="Olivos">
+						<div class="coleccion-card-footer">
+							<h4>Olivos</h4>
+							<span class="ver-col">Ver colección</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-4 col-6 mb-3">
+					<a href="{% url 'filtrar_productos' %}?coleccion=magnolias#productos" class="coleccion-card">
+						<img src="{% static 'img/magnolias.jpg' %}" alt="Magnolias">
+						<div class="coleccion-card-footer">
+							<h4>Magnolias</h4>
+							<span class="ver-col">Ver colección</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-4 col-6 mb-3">
+					<a href="{% url 'filtrar_productos' %}?coleccion=cerezos#productos" class="coleccion-card">
+						<img src="{% static 'img/cerezos.jpg' %}" alt="Cerezos">
+						<div class="coleccion-card-footer">
+							<h4>Cerezos</h4>
+							<span class="ver-col">Ver colección</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-4 col-6 mb-3">
+					<a href="{% url 'filtrar_productos' %}?coleccion=mediterraneo#productos" class="coleccion-card">
+						<img src="{% static 'img/mediterraneo.jpg' %}" alt="Mediterráneo">
+						<div class="coleccion-card-footer">
+							<h4>Mediterráneo</h4>
+							<span class="ver-col">Ver colección</span>
+						</div>
+					</a>
+				</div>
 			</div>
 		</div>
-	</section>
-	{% endif %}
-	<!-- end best sellers -->
-
-	<!-- categories -->
-	<div class="cat-section">
-
-		<a href="{% url 'filtrar_productos' %}?tipo=cuadros#productos" class="cat-tile">
-			<div class="cat-tile-bg" style="background-image: url('{% static 'img/hero-bg-3.jpg' %}')"></div>
-			<div class="cat-tile-overlay"></div>
-			<div class="cat-tile-content">
-				<p class="cat-tile-name">Cuadros</p>
-				<span class="cat-tile-link">Ver colección</span>
-			</div>
-		</a>
-
-		<a href="{% url 'filtrar_productos' %}?tipo=ceramica#productos" class="cat-tile">
-			<div class="cat-tile-bg" style="background-image: url('{% static 'img/ceramicafoto.jpg' %}')"></div>
-			<div class="cat-tile-overlay"></div>
-			<div class="cat-tile-content">
-				<p class="cat-tile-name">Piezas de Cerámica</p>
-				<span class="cat-tile-link">Ver colección</span>
-			</div>
-		</a>
-
-		<a href="{% url 'filtrar_productos' %}?tipo=acuarelas#productos" class="cat-tile">
-			<div class="cat-tile-bg" style="background-image: url('{% static 'img/hero-bg-2.jpg' %}')"></div>
-			<div class="cat-tile-overlay"></div>
-			<div class="cat-tile-content">
-				<p class="cat-tile-name">Láminas Acuarelas</p>
-				<span class="cat-tile-link">Ver colección</span>
-			</div>
-		</a>
-
-		<a href="{% url 'filtrar_productos' %}?tipo=wedding#productos" class="cat-tile">
-			<div class="cat-tile-bg" style="background-image: url('{% static 'img/hero-bg.jpg' %}')"></div>
-			<div class="cat-tile-overlay"></div>
-			<div class="cat-tile-content">
-				<p class="cat-tile-name">Wedding</p>
-				<span class="cat-tile-link">Ver colección</span>
-			</div>
-		</a>
-
 	</div>
-	<!-- end categories -->
+	<!-- end colecciones nav -->
+
+	<!-- personalizado section -->
+	<section style="background:#fff; padding:64px 0; text-align:center; border-top:1px solid #ede9e3;">
+		<div class="container">
+			<p style="font-family:'Open Sans',sans-serif; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:#5D7C43; margin:0 0 14px;">Diseño a medida</p>
+			<h2 style="font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:300; color:#1c1710; margin:0 0 12px; line-height:1.2;">El producto que quieras,<br>con el diseño que quieras.</h2>
+			<p style="font-family:'Open Sans',sans-serif; font-size:.92rem; color:#8a7e72; max-width:460px; margin:0 auto 32px; line-height:1.8;">Elegí la pieza cruda y le aplicamos la colección de tu elección. También podés solicitarnos un diseño completamente personalizado.</p>
+			<a href="{% url 'filtrar_productos' %}?tipo=personalizado#productos"
+			   style="display:inline-block; padding:12px 32px; border:1px solid #1c1710; border-radius:50px; font-family:'Open Sans',sans-serif; font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:#1c1710; text-decoration:none; transition:all .25s;">
+				Elegir mi pieza
+			</a>
+		</div>
+	</section>
+	<!-- end personalizado section -->
 
 	<!-- product grid -->
 	<div id="productos" class="product-section mt-80 mb-80">
@@ -346,7 +350,8 @@
 
 			<div class="product-section-header">
 				<h2 class="product-section-title">
-					{% if tipo %}
+					{% if coleccion_nombre %}{{ coleccion_nombre }}
+					{% elif tipo %}
 						{% if tipo == 'ceramica' %}Piezas de Cerámica
 						{% elif tipo == 'acuarelas' %}Láminas Acuarelas
 						{% elif tipo == 'cuadros' %}Cuadros
@@ -359,20 +364,26 @@
 				</h2>
 				<div class="product-filters">
 					<ul>
-						<li {% if not tipo %}class="active"{% endif %}>
+						<li {% if not tipo and not coleccion %}class="active"{% endif %}>
 							<a href="{% url 'filtrar_productos' %}">Todos</a>
 						</li>
-						<li {% if tipo == 'cuadros' %}class="active"{% endif %}>
-							<a href="{% url 'filtrar_productos' %}?tipo=cuadros">Cuadros</a>
+						<li {% if coleccion == 'limones' %}class="active"{% endif %}>
+							<a href="{% url 'filtrar_productos' %}?coleccion=limones">Limones</a>
 						</li>
-						<li {% if tipo == 'ceramica' %}class="active"{% endif %}>
-							<a href="{% url 'filtrar_productos' %}?tipo=ceramica">Cerámica</a>
+						<li {% if coleccion == 'morrisyco' %}class="active"{% endif %}>
+							<a href="{% url 'filtrar_productos' %}?coleccion=morrisyco">Morris&amp;Co</a>
 						</li>
-						<li {% if tipo == 'acuarelas' %}class="active"{% endif %}>
-							<a href="{% url 'filtrar_productos' %}?tipo=acuarelas">Acuarelas</a>
+						<li {% if coleccion == 'olivos' %}class="active"{% endif %}>
+							<a href="{% url 'filtrar_productos' %}?coleccion=olivos">Olivos</a>
 						</li>
-						<li {% if tipo == 'wedding' %}class="active"{% endif %}>
-							<a href="{% url 'filtrar_productos' %}?tipo=wedding">Wedding</a>
+						<li {% if coleccion == 'magnolias' %}class="active"{% endif %}>
+							<a href="{% url 'filtrar_productos' %}?coleccion=magnolias">Magnolias</a>
+						</li>
+						<li {% if coleccion == 'cerezos' %}class="active"{% endif %}>
+							<a href="{% url 'filtrar_productos' %}?coleccion=cerezos">Cerezos</a>
+						</li>
+						<li {% if coleccion == 'mediterraneo' %}class="active"{% endif %}>
+							<a href="{% url 'filtrar_productos' %}?coleccion=mediterraneo">Mediterráneo</a>
 						</li>
 					</ul>
 				</div>
@@ -396,7 +407,14 @@
 						  <p class="product-price">${{ producto.Precio }}</p>
 						{% endif %}
 						<a href="{% url 'producto_individual' producto.id %}" class="detail-btn">Detalles de la Pieza</a>
+						{% if producto.tipo == 'personalizado' %}
+						<button type="button" class="cart-btn" onclick="abrirModalDiseno('{{ producto.id }}')"
+						        style="display:inline-block; background:#5D7C43; color:#fff; border:none; border-radius:50px; padding:10px 20px; font-size:.78rem; font-weight:600; letter-spacing:.04em; cursor:pointer; width:100%; margin-top:6px;">
+							Seleccionar diseño y agregar al carrito
+						</button>
+						{% else %}
 						<a href="{% url 'agregar_al_carrito_desde_lista' producto.id %}" class="cart-btn">Agregar al Carrito</a>
+						{% endif %}
 					</div>
 				</div>
 				{% empty %}
@@ -465,6 +483,93 @@
 					1100: { items: 4 }
 				}
 			});
+		});
+	</script>
+
+	<!-- Modal selector de diseño (compartido para toda la lista) -->
+	<div id="modal-diseno" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+		<div style="background:#fff; border-radius:12px; padding:32px 28px; max-width:580px; width:100%; max-height:90vh; overflow-y:auto; position:relative;">
+			<button onclick="cerrarModalDiseno()" style="position:absolute; top:14px; right:18px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#888; line-height:1;">&times;</button>
+			<h4 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:400; margin:0 0 6px;">Elegí el diseño</h4>
+			<p style="font-family:'Open Sans',sans-serif; font-size:.82rem; color:#8a7e72; margin:0 0 22px;">Seleccioná la colección o pedí un diseño a medida.</p>
+
+			<form action="{% url 'agregar_personalizado' %}" method="POST" id="form-diseno-modal">
+				{% csrf_token %}
+				<input type="hidden" name="producto_id" id="modal-producto-id" value="">
+				<input type="hidden" name="cantidad" value="1">
+				<input type="hidden" name="diseño" id="modal-diseno-elegido" value="">
+
+				<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px;">
+					<div class="md-opcion" data-nombre="Limones" onclick="seleccionarDiseno(this)" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid #e8e2db; transition:border-color .2s; background:#fff;">
+						<img src="{% static 'img/limones.jpg' %}" style="width:100%; height:90px; object-fit:cover; display:block;">
+						<p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.9rem; margin:6px 0 8px; color:#1c1710;">Limones</p>
+					</div>
+					<div class="md-opcion" data-nombre="Morris&amp;Co" onclick="seleccionarDiseno(this)" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid #e8e2db; transition:border-color .2s; background:#fff;">
+						<img src="{% static 'img/MorrisCo.jpg' %}" style="width:100%; height:90px; object-fit:cover; display:block;">
+						<p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.9rem; margin:6px 0 8px; color:#1c1710;">Morris&amp;Co</p>
+					</div>
+					<div class="md-opcion" data-nombre="Olivos" onclick="seleccionarDiseno(this)" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid #e8e2db; transition:border-color .2s; background:#fff;">
+						<img src="{% static 'img/olivos.jpg' %}" style="width:100%; height:90px; object-fit:cover; display:block;">
+						<p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.9rem; margin:6px 0 8px; color:#1c1710;">Olivos</p>
+					</div>
+					<div class="md-opcion" data-nombre="Magnolias" onclick="seleccionarDiseno(this)" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid #e8e2db; transition:border-color .2s; background:#fff;">
+						<img src="{% static 'img/magnolias.jpg' %}" style="width:100%; height:90px; object-fit:cover; display:block;">
+						<p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.9rem; margin:6px 0 8px; color:#1c1710;">Magnolias</p>
+					</div>
+					<div class="md-opcion" data-nombre="Cerezos" onclick="seleccionarDiseno(this)" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid #e8e2db; transition:border-color .2s; background:#fff;">
+						<img src="{% static 'img/cerezos.jpg' %}" style="width:100%; height:90px; object-fit:cover; display:block;">
+						<p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.9rem; margin:6px 0 8px; color:#1c1710;">Cerezos</p>
+					</div>
+					<div class="md-opcion" data-nombre="Mediterráneo" onclick="seleccionarDiseno(this)" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid #e8e2db; transition:border-color .2s; background:#fff;">
+						<img src="{% static 'img/mediterraneo.jpg' %}" style="width:100%; height:90px; object-fit:cover; display:block;">
+						<p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.9rem; margin:6px 0 8px; color:#1c1710;">Mediterráneo</p>
+					</div>
+				</div>
+
+				<div class="md-opcion" data-nombre="Solicitar diseño personalizado" onclick="seleccionarDiseno(this)"
+				     style="cursor:pointer; width:100%; padding:14px; border:1.5px dashed #5D7C43; border-radius:8px; background:none; font-family:'Open Sans',sans-serif; font-size:.82rem; color:#5D7C43; letter-spacing:.04em; margin-bottom:18px; text-align:center;">
+					✏️ Solicitar diseño personalizado
+				</div>
+
+				<button type="submit" id="btn-confirmar-modal" disabled
+				        style="width:100%; padding:13px; background:#5D7C43; color:#fff; border:none; border-radius:8px; font-family:'Open Sans',sans-serif; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; opacity:.4; transition:opacity .2s;">
+					Confirmar y agregar al carrito
+				</button>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		function abrirModalDiseno(productoId) {
+			document.getElementById('modal-producto-id').value = productoId;
+			document.getElementById('modal-diseno-elegido').value = '';
+			document.querySelectorAll('.md-opcion').forEach(function(el){
+				el.style.borderColor = '#e8e2db';
+				el.style.background = '';
+			});
+			var btn = document.getElementById('btn-confirmar-modal');
+			btn.disabled = true;
+			btn.style.opacity = '0.4';
+			document.getElementById('modal-diseno').style.display = 'flex';
+		}
+		function cerrarModalDiseno() {
+			document.getElementById('modal-diseno').style.display = 'none';
+		}
+		function seleccionarDiseno(el) {
+			document.querySelectorAll('.md-opcion').forEach(function(d){
+				d.style.borderColor = '#e8e2db';
+				d.style.background = '';
+			});
+			el.style.borderColor = '#5D7C43';
+			el.style.background = '#f0f6ea';
+			document.getElementById('modal-diseno-elegido').value = el.getAttribute('data-nombre');
+			var btn = document.getElementById('btn-confirmar-modal');
+			btn.disabled = false;
+			btn.style.opacity = '1';
+		}
+		// Cerrar al hacer click fuera del modal
+		document.getElementById('modal-diseno').addEventListener('click', function(e){
+			if (e.target === this) cerrarModalDiseno();
 		});
 	</script>
 

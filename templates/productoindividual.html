@@ -66,8 +66,13 @@
             <div class="col-md-5 text-center">
                 <div id="carouselProducto" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
+                        {% if producto.foto %}
+                            <div class="carousel-item active">
+                                <img src="{{ producto.foto.url }}" class="d-block" alt="{{ producto.Titulo }}">
+                            </div>
+                        {% endif %}
                         {% for imagen in producto.imagenes.all %}
-                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="carousel-item {% if not producto.foto and forloop.first %}active{% endif %}">
                                 <img src="{{ imagen.imagen.url }}" class="d-block" alt="Foto de {{ producto.Titulo }}">
                             </div>
                         {% endfor %}
@@ -101,15 +106,98 @@
                   <p style="color:#4CAF50;">Stock disponible: {{ producto.stock }}</p>
                 {% endif %}
            
+                    {% if producto.tipo == 'personalizado' %}
+                    <!-- Selector de diseño para piezas personalizables -->
+                    <form action="{% url 'agregar_personalizado' %}" method="POST" id="form-personalizado">
+                        {% csrf_token %}
+                        <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                        <input type="hidden" name="diseño" id="diseño-elegido" value="">
+                        <input type="number" name="cantidad" placeholder="Cantidad" min="1" value="1" style="width:80px; margin-bottom:14px;">
+                        <br>
+                        <button type="button" class="cart-btn green-btn" onclick="document.getElementById('modal-diseño').style.display='flex'">
+                            <i class="fas fa-palette"></i> Seleccionar diseño y agregar al carrito
+                        </button>
+                    </form>
+
+                    <!-- Modal selector de diseño -->
+                    <div id="modal-diseño" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+                        <div style="background:#fff; border-radius:12px; padding:32px 28px; max-width:600px; width:100%; max-height:90vh; overflow-y:auto; position:relative;">
+                            <button onclick="document.getElementById('modal-diseño').style.display='none'" style="position:absolute; top:14px; right:18px; background:none; border:none; font-size:1.4rem; cursor:pointer; color:#888;">&times;</button>
+                            <h4 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:400; margin:0 0 6px;">Elegí el diseño</h4>
+                            <p style="font-family:'Open Sans',sans-serif; font-size:.82rem; color:#8a7e72; margin:0 0 24px;">Seleccioná la colección o pedí un diseño a medida.</p>
+
+                            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px;">
+                                {% load static %}
+                                <div class="diseño-opcion" onclick="elegirDiseño(this,'Limones')" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid transparent; transition:border-color .2s;">
+                                    <img src="{% static 'img/limones.jpg' %}" style="width:100%; height:100px; object-fit:cover; display:block;">
+                                    <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.95rem; margin:6px 0 8px;">Limones</p>
+                                </div>
+                                <div class="diseño-opcion" onclick="elegirDiseño(this,'Morris&amp;Co')" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid transparent; transition:border-color .2s;">
+                                    <img src="{% static 'img/MorrisCo.jpg' %}" style="width:100%; height:100px; object-fit:cover; display:block;">
+                                    <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.95rem; margin:6px 0 8px;">Morris&amp;Co</p>
+                                </div>
+                                <div class="diseño-opcion" onclick="elegirDiseño(this,'Olivos')" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid transparent; transition:border-color .2s;">
+                                    <img src="{% static 'img/olivos.jpg' %}" style="width:100%; height:100px; object-fit:cover; display:block;">
+                                    <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.95rem; margin:6px 0 8px;">Olivos</p>
+                                </div>
+                                <div class="diseño-opcion" onclick="elegirDiseño(this,'Magnolias')" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid transparent; transition:border-color .2s;">
+                                    <img src="{% static 'img/magnolias.jpg' %}" style="width:100%; height:100px; object-fit:cover; display:block;">
+                                    <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.95rem; margin:6px 0 8px;">Magnolias</p>
+                                </div>
+                                <div class="diseño-opcion" onclick="elegirDiseño(this,'Cerezos')" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid transparent; transition:border-color .2s;">
+                                    <img src="{% static 'img/cerezos.jpg' %}" style="width:100%; height:100px; object-fit:cover; display:block;">
+                                    <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.95rem; margin:6px 0 8px;">Cerezos</p>
+                                </div>
+                                <div class="diseño-opcion" onclick="elegirDiseño(this,'Mediterráneo')" style="cursor:pointer; border-radius:8px; overflow:hidden; border:2px solid transparent; transition:border-color .2s;">
+                                    <img src="{% static 'img/mediterraneo.jpg' %}" style="width:100%; height:100px; object-fit:cover; display:block;">
+                                    <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:.95rem; margin:6px 0 8px;">Mediterráneo</p>
+                                </div>
+                            </div>
+
+                            <button onclick="elegirDiseño(this,'Solicitar diseño personalizado')" class="diseño-opcion-custom" style="width:100%; padding:14px; border:1.5px dashed #5D7C43; border-radius:8px; background:none; cursor:pointer; font-family:'Open Sans',sans-serif; font-size:.82rem; color:#5D7C43; letter-spacing:.06em; margin-bottom:20px;">
+                                ✏️ Solicitar diseño personalizado
+                            </button>
+
+                            <button id="btn-confirmar" onclick="confirmarDiseño()" disabled style="width:100%; padding:13px; background:#5D7C43; color:#fff; border:none; border-radius:8px; font-family:'Open Sans',sans-serif; font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; opacity:.45; transition:opacity .2s;">
+                                Confirmar y agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+
+                    <script>
+                        var diseñoSeleccionado = '';
+                        function elegirDiseño(el, nombre) {
+                            document.querySelectorAll('.diseño-opcion').forEach(function(d){ d.style.borderColor='transparent'; d.style.background=''; });
+                            document.querySelector('.diseño-opcion-custom').style.borderColor='#5D7C43';
+                            document.querySelector('.diseño-opcion-custom').style.background='';
+                            if (el.classList.contains('diseño-opcion-custom')) {
+                                el.style.background='#f0f6ea';
+                                el.style.borderColor='#3a5c25';
+                            } else {
+                                el.style.borderColor='#5D7C43';
+                            }
+                            diseñoSeleccionado = nombre;
+                            var btn = document.getElementById('btn-confirmar');
+                            btn.disabled = false;
+                            btn.style.opacity = '1';
+                        }
+                        function confirmarDiseño() {
+                            if (!diseñoSeleccionado) return;
+                            document.getElementById('diseño-elegido').value = diseñoSeleccionado;
+                            document.getElementById('form-personalizado').submit();
+                        }
+                    </script>
+
+                    {% else %}
                     <form action="{% url 'agregar_al_carrito' %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="producto_id" value="{{ producto.id }}">
                     <input type="number" name="cantidad" placeholder="Cantidad" min="1" value="1" style="width: 80px;">
-    
                 <button type="submit" class="cart-btn green-btn">
                     <i class="fas fa-shopping-cart"></i> Agregar al Carrito
                 </button>
                 </form>
+                    {% endif %}
 
             </div>
         </div>

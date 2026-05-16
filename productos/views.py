@@ -11,10 +11,15 @@ def lista_productos(request):
   
 def flitro_productos(request):
     tipo = request.GET.get('tipo')
+    coleccion = request.GET.get('coleccion')
+
     if tipo:
         productos = Producto.objects.filter(tipo=tipo)
+    elif coleccion:
+        productos = Producto.objects.filter(coleccion=coleccion)
     else:
         productos = Producto.objects.all()
+
     paginator = Paginator(productos, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -23,9 +28,20 @@ def flitro_productos(request):
     if not best_sellers:
         best_sellers = list(Producto.objects.all()[:8])
 
+    COLECCION_NOMBRES = {
+        'limones': 'Limones',
+        'morrisyco': 'Morris&Co',
+        'olivos': 'Olivos',
+        'magnolias': 'Magnolias',
+        'cerezos': 'Cerezos',
+        'mediterraneo': 'Mediterráneo',
+    }
+
     return render(request, 'productos.html', {
         'productos': page_obj,
         'tipo': tipo,
+        'coleccion': coleccion,
+        'coleccion_nombre': COLECCION_NOMBRES.get(coleccion, ''),
         'page_obj': page_obj,
         'best_sellers': best_sellers,
     })
@@ -56,6 +72,23 @@ def agregar_al_carrito(request):
 
 
 # Desde productos.html
+def agregar_personalizado(request):
+    if request.method != 'POST':
+        return redirect('filtrar_productos')
+
+    producto_id = str(request.POST.get('producto_id', ''))
+    diseño = request.POST.get('diseño', '').strip()
+    cantidad = max(1, int(request.POST.get('cantidad', 1) or 1))
+
+    # Clave compuesta para que mismo producto con distinto diseño sea entrada separada
+    clave = f"{producto_id}|{diseño}" if diseño else producto_id
+
+    carrito = request.session.get('carrito', {})
+    carrito[clave] = carrito.get(clave, 0) + cantidad
+    request.session['carrito'] = carrito
+    return redirect('carrito')
+
+
 def agregar_al_carrito_desde_lista(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     carrito = request.session.get('carrito', {})
